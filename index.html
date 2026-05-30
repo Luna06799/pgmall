@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>PG Mall · Travail en ligne à domicile | Rémunération quotidienne</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f4f8f5;
+            padding: 20px;
+            color: #1a2a2f;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 36px;
+            overflow: hidden;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+        }
+
+        .hero-company {
+            background: linear-gradient(115deg, #0b3b2f 0%, #1c6e58 100%);
+            color: white;
+            padding: 28px 24px 24px 24px;
+            border-bottom-left-radius: 24px;
+            border-bottom-right-radius: 24px;
+        }
+
+        .company-badge {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(2px);
+            padding: 6px 14px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 18px;
+        }
+
+        .company-name {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            line-height: 1.2;
+            margin-bottom: 8px;
+        }
+
+        .company-sub {
+            font-size: 15px;
+            opacity: 0.92;
+            margin-top: 6px;
+            border-left: 3px solid #ffd966;
+            padding-left: 12px;
+        }
+
+        .legal-row {
+            background: rgba(0,0,0,0.2);
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin-top: 18px;
+            font-size: 13px;
+            font-family: monospace;
+        }
+
+        .content {
+            padding: 28px 24px;
+        }
+
+        .section {
+            margin-bottom: 32px;
+        }
+
+        .section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1b6b55;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card {
+            background: #fafdfb;
+            border-radius: 24px;
+            padding: 18px;
+            margin-bottom: 12px;
+            border: 1px solid #e2f0ea;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 10px 0 12px;
+        }
+
+        .badge {
+            background: #e7f3ef;
+            padding: 6px 15px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1c6e58;
+        }
+
+        .highlight {
+            background: #e2f0ea;
+            border-left: 4px solid #1c6e58;
+            padding: 14px 18px;
+            border-radius: 20px;
+            margin: 16px 0 4px;
+        }
+
+        .price {
+            font-size: 26px;
+            font-weight: 800;
+            color: #1c6e58;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #1c6e58;
+            color: white;
+            text-align: center;
+            padding: 14px 18px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 16px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            text-decoration: none;
+        }
+
+        .btn:active {
+            background: #0f4f3e;
+            transform: scale(0.97);
+        }
+
+        .register-link-card {
+            background: #eef3f0;
+            border-radius: 20px;
+            padding: 14px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .register-link {
+            font-size: 14px;
+            word-break: break-all;
+            background: white;
+            padding: 10px;
+            border-radius: 16px;
+            margin: 10px 0;
+            border: 1px solid #cde0d9;
+        }
+        .step-list {
+            margin: 16px 0;
+        }
+        .register-step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #e2efe9;
+        }
+        .step-num {
+            width: 28px;
+            height: 28px;
+            background: #1c6e58;
+            color: white;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-content strong {
+            color: #1c6e58;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .step-content p {
+            font-size: 14px;
+            color: #3c5e52;
+            line-height: 1.4;
+        }
+        .code-highlight {
+            background: #eef3f0;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-family: monospace;
+            font-weight: 600;
+            color: #1c6e58;
+        }
+        .captcha-demo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-top: 6px;
+        }
+        .captcha-input-demo {
+            background: white;
+            border: 1px solid #cde0d9;
+            border-radius: 16px;
+            padding: 8px 12px;
+            font-size: 13px;
+            flex: 1;
+        }
+        .captcha-img-demo {
+            background: #eef3f0;
+            padding: 6px 16px;
+            border-radius: 16px;
+            font-family: monospace;
+            font-weight: 800;
+            font-size: 18px;
+            letter-spacing: 3px;
+            color: #1c6e58;
+        }
+        .demo-note {
+            background: #fef7e0;
+            padding: 8px 12px;
+            border-radius: 16px;
+            margin-top: 12px;
+            font-size: 12px;
+        }
+        .daily-flow {
+            background: #fefef7;
+            border-radius: 28px;
+            padding: 8px 0;
+        }
+        .flow-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 14px 12px;
+            border-bottom: 1px dashed #deede6;
+        }
+        .flow-item:last-child {
+            border-bottom: none;
+        }
+        .flow-num {
+            width: 28px;
+            height: 28px;
+            background: #e2f0ea;
+            border-radius: 30px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            color: #1c6e58;
+            font-size: 14px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .flow-content {
+            flex: 1;
+        }
+        .flow-content strong {
+            color: #1c6e58;
+            display: block;
+            margin-bottom: 4px;
+            font-size: 15px;
+        }
+        .flow-content p {
+            font-size: 13.5px;
+            color: #3c5e52;
+            line-height: 1.45;
+        }
+        .resume-form {
+            background: #ffffff;
+            border-radius: 24px;
+            border: 1px solid #e2efe9;
+            padding: 6px 0;
+            margin-bottom: 20px;
+        }
+        .resume-row {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 16px;
+            border-bottom: 1px solid #eef2ef;
+            flex-wrap: wrap;
+        }
+        .resume-label {
+            width: 130px;
+            font-weight: 600;
+            color: #1c6e58;
+            font-size: 14px;
+            padding-top: 4px;
+            flex-shrink: 0;
+        }
+        .resume-field {
+            flex: 1;
+            color: #2c5a4c;
+            font-size: 14px;
+            border-bottom: 1px dashed #cde0d9;
+            padding: 4px 6px;
+            min-height: 32px;
+        }
+        .resume-field span {
+            color: #8aa99b;
+        }
+        .signature-line {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .resume-note {
+            background: #fef7e0;
+            padding: 10px 14px;
+            border-radius: 18px;
+            font-size: 12px;
+            margin-top: 12px;
+            color: #a47c2e;
+        }
+        .contact-card {
+            background: #ffffff;
+            border-radius: 28px;
+            text-align: center;
+            padding: 20px 20px;
+            border: 1px solid #e2efe9;
+        }
+        .contact-name {
+            font-weight: 700;
+            font-size: 20px;
+            color: #1c6e58;
+            margin-bottom: 8px;
+        }
+        .contact-tag {
+            font-size: 14px;
+            background: #eef3f0;
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 40px;
+            margin: 8px 0;
+        }
+        .contact-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 20px 0 16px;
+        }
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: #f2f9f5;
+            border: 1px solid #cde0d9;
+            border-radius: 60px;
+            padding: 12px;
+            text-decoration: none;
+            color: #1c6e58;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .contact-btn:active {
+            background: #e2f0ea;
+            transform: scale(0.97);
+        }
+        .footer {
+            background: #f8fbf9;
+            padding: 20px 24px;
+            text-align: center;
+            font-size: 12px;
+            color: #6b897c;
+            border-top: 1px solid #e0ede6;
+        }
+        .faq-answer {
+            margin-top: 6px;
+            margin-bottom: 14px;
+        }
+        .faq-item {
+            margin-bottom: 16px;
+            border-bottom: 1px solid #e9f0ec;
+            padding-bottom: 12px;
+        }
+        .faq-item strong {
+            color: #1c6e58;
+            font-size: 15px;
+        }
+        .link {
+            color: #1c6e58;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .product-types {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 12px;
+            margin-bottom: 4px;
+        }
+        .product-tag {
+            background: #eef3f0;
+            border-radius: 30px;
+            padding: 4px 12px;
+            font-size: 12px;
+            color: #1c6e58;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="hero-company">
+        <div class="company-badge">🏛️ Société enregistrée légalement au Colorado, États-Unis · Plateforme de travail en ligne mondiale</div>
+        <div class="company-name">PG Playground<br><span style="font-size: 22px;">PG Mall officiel</span></div>
+        <div class="company-sub">｜Créée le 20 août 2018 · Travail flexible en ligne</div>
+        <div class="legal-row">
+            📄 Numéro d'enregistrement : <span>20181650293</span><br>
+            🏢 Adresse enregistrée : 1401 17th St, Denver, CO 80202, United States<br>
+            ✅ Statut : Good Standing (en bonne réputation)
+        </div>
+        <div style="margin-top: 12px; font-size: 12px; opacity: 0.8;">⚖️ Vérifiable auprès du gouvernement de l'État · Crédibilité garantie</div>
+    </div>
+
+    <div class="content">
+        <!-- Section explicative -->
+        <div class="section">
+            <div class="section-title">📌 Explication du travail à domicile</div>
+            <div class="card">
+                <p>📱 PG Mall aide les marques mondiales à améliorer <span style="font-weight:700">la visibilité des produits et les ventes</span>.<br>
+                Il vous suffit de consacrer 5 à 10 minutes par jour, sur votre téléphone ou ordinateur, de cliquer sur « Démarrer la tâche » et de <strong>passer commande réellement selon les instructions</strong>. Ensuite, <strong>faites une capture d'écran de la confirmation et envoyez-la à votre responsable</strong>.<br>
+                💡 Les produits sont sponsorisés par les marques, vous n'avancez aucun frais. Toutes les transactions sont financées par la plateforme ou les marques, zéro risque.</p>
+                
+                <div style="margin-top: 16px; padding-top: 12px; border-top: 1px dashed #d0e3db;">
+                    <p style="font-size: 14px; font-weight: 500; color: #1c6e58; margin-bottom: 8px;">🛍️ Types de produits que vous pouvez acheter :</p>
+                    <div class="product-types">
+                        <span class="product-tag">🏠 Électroménager</span>
+                        <span class="product-tag">🛋️ Mobilier</span>
+                        <span class="product-tag">🥇 Métaux précieux</span>
+                        <span class="product-tag">👗 Vêtements</span>
+                        <span class="product-tag">📱 Électronique</span>
+                        <span class="product-tag">🏕️ Matériel de plein air</span>
+                        <span class="product-tag">📦 Autres produits de marque</span>
+                    </div>
+                    <p style="font-size: 12px; color: #5c7e70; margin-top: 8px;">※ Les produits réels dépendent des tâches publiées quotidiennement par les marques. Les récompenses sont stables et variées.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Système de rémunération -->
+        <div class="section">
+            <div class="section-title">💎 Rémunération & avantages</div>
+            <div class="card">
+                <div class="badge-group">
+                    <span class="badge">🎁 Prime nouveau membre 100 XOF</span>
+                    <span class="badge">📆 Stage 2 jours → Gagnez 8 800 XOF</span>
+                    <span class="badge">⭐ Employé débutant → ~9 100 XOF/mois</span>
+                    <span class="badge">🚀 VIP → Jusqu'à 580 000 XOF/jour</span>
+                </div>
+                <p>✔ Stage entièrement gratuit : découvrez le processus réel.<br>✔ Après promotion, revenus fixes quotidiens + commission sur performance, paiement journalier.</p>
+            </div>
+            <div class="highlight"><p>✨ Conseil : effectuez d'abord le stage gratuit de 2 jours, gagnez 8 800 XOF, puis décidez de passer en statut officiel. Zéro risque.</p></div>
+        </div>
+
+        <!-- Processus de travail quotidien stagiaire -->
+        <div class="section">
+            <div class="section-title">🧑‍💻 Processus de travail quotidien (stagiaire)</div>
+            <div class="card daily-flow">
+                <div class="flow-item">
+                    <div class="flow-num">1</div>
+                    <div class="flow-content">
+                        <strong>Connexion à l'espace de travail</strong>
+                        <p>Accédez chaque jour au tableau des tâches PG Mall, et entrez dans votre niveau de tâches selon votre statut.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">2</div>
+                    <div class="flow-content">
+                        <strong>Acheter des produits</strong>
+                        <p>Sélectionnez un produit et passez commande. Après la confirmation de la commande, vous recevez une commission.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">3</div>
+                    <div class="flow-content">
+                        <strong>Capture d'écran de confirmation</strong>
+                        <p>Une fois la commande réussie, faites une capture d'écran de la page « Commande confirmée / Paiement réussi » et envoyez-la à la responsable Luna.</p>
+                    </div>
+                </div>
+                <div class="flow-item">
+                    <div class="flow-num">4</div>
+                    <div class="flow-content">
+                        <strong>Recevoir la commission du jour</strong>
+                        <p>Après validation par la responsable, la commission est créditée automatiquement. Retrait quotidien possible (dès 1500 XOF).</p>
+                    </div>
+                </div>
+                <div class="highlight" style="margin-top: 16px;">
+                    💡 <strong>Précision :</strong> Les tâches sont des commandes réelles de marques partenaires. Vous utilisez les fonds fournis par la plateforme ou la marque. Aucun apport personnel.
+                </div>
+            </div>
+        </div>
+
+        <!-- Vérification officielle -->
+        <div class="section">
+            <div class="section-title">🔍 Vérification officielle</div>
+            <div class="card">
+                <p><strong>PG Playground (PG Mall)</strong> est enregistré légalement dans le Colorado :</p>
+                <div style="padding: 8px 0;"><a href="https://www.coloradosos.gov/biz/BusinessEntitySearch" target="_blank" rel="noopener noreferrer" class="link">👉 Site officiel de recherche d'entreprises du Colorado</a></div>
+                <div>🔎 Nom de l'entreprise : <code>PG Playground</code> Numéro de dossier : <code>20181650293</code><br>🏢 Adresse : 1401 17th St, Denver, CO 80202</div>
+                <div class="highlight" style="margin-top: 12px;">✅ Statut : Good Standing · Créée en 2018 · Enregistrement d'État vérifiable</div>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="section">
+            <div class="section-title">❓ FAQ</div>
+            <div class="card">
+                <div class="faq-item"><strong>❓ Dois-je pointer à heures fixes ?</strong><div class="faq-answer">✅ Horaires libres. Quelques minutes par jour, à tout moment. Capture et envoi à la responsable.</div></div>
+                <div class="faq-item"><strong>❓ Dois-je avancer de l'argent pour les commandes ?</strong><div class="faq-answer">✅ Non ! Les fonds sont fournis par la marque ou la plateforme. Zéro avance, zéro risque.</div></div>
+                <div class="faq-item"><strong>❓ Faut-il obligatoirement déposer de l'argent avant de travailler ?</strong><div class="faq-answer">✅ Non. Stage gratuit de 2 jours : gagnez 8 800 XOF, puis vous décidez si vous souhaitez déposer la garantie pour devenir employé officiel.</div></div>
+                <div class="faq-item"><strong>❓ Règles de retrait ?</strong><div class="faq-answer">✅ Paiement quotidien, retirable dès 1500 XOF vers wallet électronique / banque locale, généralement sous 2h.</div></div>
+                <div class="faq-item"><strong>❓ Un numéro de téléphone peut-il créer plusieurs comptes ?</strong><div class="faq-answer">✅ Un seul compte par numéro de téléphone pour garantir l'équité.</div></div>
+            </div>
+        </div>
+
+        <!-- Candidature / CV -->
+        <div class="section">
+            <div class="section-title">📋 Candidature</div>
+            <div class="card" style="padding-bottom: 8px;">
+                <p style="margin-bottom: 12px; font-size: 14px; color: #2c5a4c;">⚠️ Avant de créer votre compte de travail, veuillez remplir ce formulaire de candidature et l'envoyer à votre responsable <strong>Luna</strong>.</p>
+                <div class="resume-form">
+                    <div class="resume-row"><div class="resume-label">📌 Nom complet :</div><div class="resume-field">(Doit être réel) <span style="color:#8aa99b;">_________________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">🎂 Âge réel :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">⚧ Sexe (H/F) :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">📞 Téléphone :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">🏙️ Ville :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">💳 Portefeuille (Wave/Orange) :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">⏰ Disponibilité (matin/après-midi/soir) :</div><div class="resume-field"><span style="color:#8aa99b;">______________</span></div></div>
+                    <div class="resume-row"><div class="resume-label">📢 Où avez-vous entendu parler de PG ? :</div><div class="resume-field">(Facebook/WhatsApp/Autre) <span style="color:#8aa99b;">________</span></div></div>
+                    <div class="resume-row" style="border-bottom: none;"><div class="resume-label">✅ Je certifie les informations ci-dessus :</div><div class="resume-field"></div></div>
+                    <div class="signature-line" style="padding: 8px 16px 16px;">
+                        <div style="flex:1;"><strong>Signature :</strong> <span style="color:#8aa99b;">______________</span></div>
+                        <div style="flex:1;"><strong>Date :</strong> <span style="color:#8aa99b;">______________</span></div>
+                    </div>
+                </div>
+                <div class="resume-note">
+                    📌 Envoyez ce formulaire complété à la responsable Luna via Telegram ou WhatsApp. Elle validera votre dossier et vous enverra le lien d'inscription.
+                </div>
+            </div>
+        </div>
+
+        <!-- Inscription PG Mall -->
+        <div class="section">
+            <div class="section-title">📱 Inscription PG Mall</div>
+            <div class="card">
+                <div class="register-link-card">
+                    <div style="font-weight: 600; margin-bottom: 6px;">🔗 Lien d'inscription</div>
+                    <div class="register-link">
+                        <a href="https://reel-shrt.com/register?invite_code=330347" target="_blank" rel="noopener noreferrer" class="link" style="font-weight: 600;">https://reel-shrt.com/register?invite_code=330347</a>
+                    </div>
+                    <p style="font-size: 12px; color: #6b8b7c;">👆 Cliquez pour accéder à la page d'inscription</p>
+                </div>
+
+                <div class="step-list">
+                    <div class="register-step"><div class="step-num">1</div><div class="step-content"><strong>📞 Renseignez votre numéro de téléphone</strong><p>Indiquez votre <strong>vrai numéro de téléphone</strong> (pour recevoir les notifications et les retraits).</p></div></div>
+                    <div class="register-step"><div class="step-num">2</div><div class="step-content"><strong>🔑 Créez un mot de passe</strong><p>Choisissez un mot de passe facile à retenir (exemple : <span class="code-highlight">123456</span> ou combinaison lettres+chiffres).</p></div></div>
+                    <div class="register-step"><div class="step-num">3</div><div class="step-content"><strong>🎫 Code d'invitation / Code promo</strong><p>Entrez le code : <span class="code-highlight" style="font-size: 16px;">330347</span><br><span style="font-size: 12px;">✅ Obligatoire pour lier votre compte à la responsable et bénéficier du suivi + prime.</span></p></div></div>
+                    <div class="register-step"><div class="step-num">4</div><div class="step-content"><strong>🔢 Captcha image</strong><p>Recopiez le code à 4 chiffres affiché à droite.</p><div class="captcha-demo"><div class="captcha-input-demo">[ Saisir le code ]</div><div class="captcha-img-demo">3 8 2 4</div></div><p style="font-size: 12px; margin-top: 6px;">💡 Exemple : si le code affiché est « 3824 », saisissez 3824 (le code réel peut varier).</p></div></div>
+                </div>
+
+                <div class="highlight" style="margin-top: 8px;">
+                    ✅ Validez les conditions, cliquez sur « S'inscrire ». Après inscription, vous recevez automatiquement <strong>100 XOF de prime nouveau membre</strong>.
+                </div>
+                <div class="demo-note">
+                    📌 La page d'inscription est une plateforme partenaire. Suivez bien les règles ci-dessus. En cas de problème, contactez la responsable Luna.
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact responsable + stage gratuit (Telegram hours updated) -->
+        <div class="section">
+            <div class="section-title">📢 Stage gratuit · Rejoignez-nous</div>
+            <div class="contact-card">
+                <div class="contact-name">👩‍💼 Responsable recrutement : Luna</div>
+                <div class="contact-tag">📱 Envoyez le mot-clé <strong style="color:#1c6e58;">"Stage"</strong> pour obtenir un accompagnement personnalisé</div>
+                
+                <div class="contact-buttons">
+                    <a href="https://t.me/LunaMisyachna799" target="_blank" rel="noopener noreferrer" class="contact-btn">
+                        <span>📨</span> Telegram · Horaires : 9h00 – 21h00
+                    </a>
+                    <a href="https://wa.me/85254967183" target="_blank" rel="noopener noreferrer" class="contact-btn">
+                        <span>💬</span> WhatsApp · Réponse rapide
+                    </a>
+                </div>
+                
+                <p style="font-size: 12px; color: #6b8b7c; margin-top: 8px;">✅ Cliquez sur un bouton pour discuter directement | Envoyez "Stage" | N'oubliez pas d'envoyer aussi votre formulaire de candidature.</p>
+                <div style="margin-top: 16px; font-size: 13px; background:#FEF9E6; border-radius: 20px; padding: 10px;">
+                    🎁 100 XOF de prime à l'inscription pour vos premières commandes.
+                </div>
+                <p style="font-size: 11px; color: #8aa99b; margin-top: 12px;">Telegram (9h00–21h00) / WhatsApp · Assistance réactive</p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div>🏢 PG Playground (PG Mall) · Société enregistrée légalement dans le Colorado, États-Unis</div>
+        <div>N° de dossier : 20181650293 | Date de création : 20 août 2018</div>
+        <div>© Plateforme de travail en ligne | Garantie remboursable | Commandes réelles financées par les marques partenaires</div>
+    </div>
+</div>
+
+<script>
+    (function() {
+        // Page entièrement fonctionnelle, aucun contenu en chinois.
+    })();
+</script>
+</body>
+</html>

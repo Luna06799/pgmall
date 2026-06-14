@@ -1,0 +1,1933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <title>PG Mall · Global Leading Online Work Platform | Daily Payment</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(145deg, #e8f5f0 0%, #d4ebe3 100%);
+            padding: 12px;
+            color: #1a2f2a;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+        input, textarea, select {
+            user-select: text;
+            -webkit-user-select: text;
+        }
+        
+        .app-container {
+            max-width: 100%;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            position: relative;
+            min-height: 100vh;
+        }
+        
+        .view {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+        .view.active-view {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .nav-header {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .nav-header .back-btn, .nav-header .home-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 18px;
+            color: white;
+            transition: 0.2s;
+        }
+        .nav-header .back-btn:active, .nav-header .home-btn:active { 
+            background: rgba(255,255,255,0.4); 
+            transform: scale(0.95); 
+        }
+        .nav-header .page-title {
+            flex: 1;
+            font-size: 17px;
+            font-weight: 600;
+        }
+        
+        .inner-nav-cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 12px;
+            background: white;
+            border-bottom: 1px solid #eef2ef;
+        }
+        .inner-nav-card {
+            flex: 1;
+            min-width: 70px;
+            background: linear-gradient(135deg, #eef5f1, #e2efea);
+            border-radius: 40px;
+            padding: 8px 4px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            font-size: 11px;
+            font-weight: 600;
+            color: #1c6e58;
+            position: relative;
+            overflow: visible;
+            animation: gentlePulse 2s ease-in-out infinite;
+        }
+        @keyframes gentlePulse {
+            0% { transform: scale(1); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+            50% { transform: scale(1.02); box-shadow: 0 6px 15px rgba(28,110,88,0.2); background: linear-gradient(135deg, #e8f5f1, #d4e9e3); }
+            100% { transform: scale(1); box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        }
+        .inner-nav-card::after {
+            content: "✨ Click to learn more";
+            position: absolute;
+            top: -24px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #e6a017;
+            color: white;
+            font-size: 8px;
+            padding: 2px 8px;
+            border-radius: 20px;
+            white-space: nowrap;
+            opacity: 0.9;
+            transition: all 0.2s ease;
+            pointer-events: none;
+            z-index: 20;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+            animation: tipFloat 1.5s ease-in-out infinite;
+        }
+        @keyframes tipFloat {
+            0% { transform: translateX(-50%) translateY(0px); opacity: 0.9; }
+            50% { transform: translateX(-50%) translateY(-3px); opacity: 1; }
+            100% { transform: translateX(-50%) translateY(0px); opacity: 0.9; }
+        }
+        @media (max-width: 600px) {
+            .inner-nav-card::after {
+                font-size: 7px;
+                padding: 2px 6px;
+                top: -22px;
+                white-space: nowrap;
+            }
+        }
+        .inner-nav-card.active {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            box-shadow: 0 4px 12px rgba(28,110,88,0.3);
+            animation: none;
+        }
+        .inner-nav-card.active::after {
+            display: none;
+        }
+        .inner-nav-card span:first-child { font-size: 18px; display: block; margin-bottom: 3px; }
+        
+        .scroll-content {
+            padding: 16px;
+            padding-bottom: 80px;
+        }
+        
+        .universal-register-card {
+            background: linear-gradient(135deg, #fff8e7, #fff3d6);
+            border: 2px solid #e6a017;
+            border-radius: 20px;
+            padding: 12px 16px;
+            margin: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+            box-shadow: 0 4px 12px rgba(230,160,23,0.2);
+        }
+        .universal-register-card .reg-text {
+            flex: 1;
+        }
+        .universal-register-card .reg-text strong {
+            font-size: 15px;
+            color: #1c6e58;
+            display: block;
+            margin-bottom: 4px;
+        }
+        .universal-register-card .reg-text p {
+            font-size: 11px;
+            color: #5a4a2a;
+        }
+        .universal-register-card .reg-btn {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-size: 13px;
+            cursor: pointer;
+            white-space: nowrap;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .universal-register-card .reg-btn:active {
+            transform: scale(0.97);
+        }
+        
+        .official-banner {
+            background: linear-gradient(135deg, #1c6e58 0%, #0f4f3e 100%);
+            padding: 8px 12px;
+            text-align: center;
+        }
+        .official-banner a { color: #ffda7c; text-decoration: none; font-weight: 600; font-size: 11px; }
+        
+        .hero-company {
+            background: linear-gradient(135deg, #0a3b2f 0%, #1b6e55 100%);
+            color: white;
+            padding: 24px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-company::before {
+            content: "PG";
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 120px;
+            font-weight: 800;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        .hero-logo-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #ffda7c, #e6a017);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            animation: logoGlow 2s ease-in-out infinite alternate;
+        }
+        @keyframes logoGlow {
+            0% { box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+            100% { box-shadow: 0 8px 30px rgba(230,160,23,0.5); }
+        }
+        .hero-logo-icon .pg-letters {
+            font-size: 32px;
+            font-weight: 800;
+            color: #1a5a48;
+            letter-spacing: -1px;
+        }
+        .hero-logo-icon::after {
+            content: "";
+            position: absolute;
+            bottom: 5px;
+            right: 8px;
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.9;
+        }
+        .hero-logo-text .pg {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: 1px;
+            background: linear-gradient(135deg, #ffda7c, #e6a017);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .hero-logo-text .mall {
+            font-size: 12px;
+            opacity: 0.85;
+        }
+        .company-badge {
+            display: inline-flex;
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(4px);
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 10px;
+            margin-bottom: 12px;
+        }
+        .company-name {
+            font-size: 22px;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .company-sub {
+            font-size: 12px;
+            opacity: 0.9;
+            border-left: 2px solid #ffda7c;
+            padding-left: 10px;
+            margin-bottom: 12px;
+        }
+        .legal-row {
+            background: rgba(0,0,0,0.25);
+            border-radius: 14px;
+            padding: 8px 12px;
+            font-size: 10px;
+            font-family: monospace;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        .contact-buttons-top { display: flex; gap: 10px; }
+        .contact-btn { flex: 1; text-align: center; padding: 8px; border-radius: 40px; text-decoration: none; font-size: 12px; font-weight: 600; transition: all 0.2s ease; }
+        .contact-telegram { background: #0088cc; color: white; }
+        .contact-telegram:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,136,204,0.3); }
+        .contact-signal { background: #3A76F0; color: white; display: none; }
+        
+        .feedback-barrage {
+            background: linear-gradient(135deg, #1b5e4a, #0d3d2f);
+            margin: 12px;
+            border-radius: 24px;
+            padding: 16px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .feedback-barrage-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+        .feedback-barrage-header h3 { font-size: 14px; }
+        .feedback-count {
+            background: rgba(255,255,255,0.2);
+            padding: 2px 8px;
+            border-radius: 30px;
+            font-size: 10px;
+        }
+        .ip-note { font-size: 9px; opacity: 0.7; margin-bottom: 10px; }
+        .barrage-container {
+            position: relative;
+            height: 280px;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(0,0,0,0.1);
+        }
+        .barrage-track {
+            position: absolute;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            will-change: transform;
+        }
+        .barrage-item {
+            background: rgba(255,255,255,0.98);
+            border-radius: 16px;
+            padding: 10px 12px;
+            margin: 0 8px;
+            color: #1a2f2a;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .barrage-item:hover {
+            transform: scale(1.01);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        .barrage-name {
+            font-weight: 700;
+            color: #1c6e58;
+            font-size: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        .ip-tag {
+            font-size: 8px;
+            background: #eef5f1;
+            padding: 2px 6px;
+            border-radius: 20px;
+        }
+        .barrage-text {
+            font-size: 10px;
+            margin-top: 6px;
+            line-height: 1.4;
+        }
+        .barrage-location {
+            font-size: 8px;
+            color: #8aa99b;
+            margin-top: 6px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .review-btn { text-align: center; margin-top: 14px; }
+        .review-btn button {
+            background: linear-gradient(135deg, #ffda7c, #e6a017);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 40px;
+            color: #1a5a48;
+            font-size: 13px;
+            font-weight: 800;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .review-btn button:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(230,160,23,0.4);
+        }
+        
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.98);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-around;
+            padding: 8px 12px;
+            border-top: 1px solid #e2efe9;
+            z-index: 200;
+            max-width: 100%;
+            margin: 0 auto;
+        }
+        .bottom-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            padding: 6px 10px;
+            border-radius: 30px;
+            font-size: 10px;
+            color: #8aa99b;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .bottom-nav-item.active {
+            background: #eef5f1;
+            color: #1c6e58;
+        }
+        .bottom-nav-item span:first-child {
+            font-size: 20px;
+        }
+        
+        .card {
+            background: white;
+            border-radius: 18px;
+            padding: 14px;
+            border: 1px solid #e2efe9;
+            margin-bottom: 12px;
+        }
+        .card-highlight { background: #f0f7f4; border-left: 4px solid #1c6e58; }
+        .card-gold { background: linear-gradient(135deg, #fff8e7, #fff3d6); border: 1px solid #ffda7c; }
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #1a5a48;
+            margin-bottom: 12px;
+            border-left: 4px solid #1c6e58;
+            padding-left: 10px;
+        }
+        .info-tip { background: #e8f5f0; border-radius: 12px; padding: 8px 10px; font-size: 11px; margin: 8px 0; }
+        .warning-tip { background: #fff3e0; border-left: 3px solid #e6a017; border-radius: 12px; padding: 8px 10px; font-size: 11px; margin: 8px 0; }
+        .step-card { display: flex; gap: 10px; padding: 10px; background: #f9fefb; border-radius: 14px; margin-bottom: 8px; }
+        .step-num { width: 28px; height: 28px; background: #1c6e58; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: 700; font-size: 12px; flex-shrink: 0; }
+        .money { color: #1e7a5e; font-weight: 800; font-size: 14px; }
+        
+        .table-wrapper {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin: 10px 0;
+        }
+        .salary-table, .commission-table {
+            min-width: 450px;
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+        .salary-table th, .salary-table td,
+        .commission-table th, .commission-table td {
+            padding: 10px 8px;
+            text-align: center;
+            border-bottom: 1px solid #e2efe9;
+            white-space: nowrap;
+        }
+        .salary-table th, .commission-table th {
+            background: #1c6e58;
+            color: white;
+            font-weight: 600;
+        }
+        .commission-income {
+            font-weight: 800;
+            color: #e6a017;
+            font-size: 13px;
+        }
+        
+        .task-step { background: #f8f9fc; border-radius: 12px; padding: 8px; margin-bottom: 8px; font-size: 11px; }
+        .contact-strip { display: flex; gap: 10px; margin: 12px 0; }
+        .contact-strip a { flex: 1; background: #0088cc; color: white; padding: 8px; border-radius: 40px; text-align: center; text-decoration: none; font-weight: 600; font-size: 11px; }
+        .contact-strip a.signal-btn { background: #3A76F0; display: none; }
+        .faq-item { border-bottom: 1px solid #eef2ef; padding: 10px 0; }
+        .faq-question { font-weight: 700; color: #1c6e58; cursor: pointer; display: flex; justify-content: space-between; font-size: 12px; }
+        .faq-answer { display: none; padding-top: 6px; font-size: 11px; color: #4a6a5a; }
+        .footer { background: #f2f8f4; padding: 12px; text-align: center; font-size: 9px; color: #6f9081; margin-bottom: 60px; }
+        .form-group { margin-bottom: 12px; }
+        .form-group label { font-weight: 600; font-size: 11px; display: block; margin-bottom: 4px; }
+        .form-group input, .form-group select { width: 100%; padding: 8px 12px; border-radius: 60px; border: 1px solid #cde0d9; font-size: 12px; }
+        .copy-btn-super {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            border: none;
+            padding: 12px 16px;
+            border-radius: 60px;
+            font-weight: 800;
+            font-size: 15px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .commission-card {
+            background: linear-gradient(125deg, #1b5e4a, #0d3d2f);
+            border-radius: 16px;
+            padding: 14px;
+            color: white;
+            margin-bottom: 12px;
+        }
+        .salary-note { background: #e8f5f0; border-radius: 12px; padding: 8px; font-size: 11px; text-align: center; margin-top: 10px; }
+        .float-help {
+            position: fixed;
+            bottom: 70px;
+            right: 16px;
+            width: 48px;
+            height: 48px;
+            background: #3A76F0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            cursor: pointer;
+            z-index: 100;
+            font-size: 24px;
+            text-decoration: none;
+            color: white;
+            display: none;
+        }
+        .review-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            visibility: hidden;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        .review-modal.show { visibility: visible; opacity: 1; }
+        .review-modal-content {
+            background: white;
+            border-radius: 28px;
+            width: 90%;
+            max-width: 380px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 20px;
+            position: relative;
+        }
+        .review-modal-close {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            font-size: 24px;
+            cursor: pointer;
+            color: #8aa99b;
+        }
+        .btn-submit {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .char-count { font-size: 10px; color: #8aa99b; text-align: right; margin-top: 4px; }
+        .grid-2col { display: flex; gap: 8px; margin: 10px 0; }
+        .stat-card { flex: 1; background: #eef5f1; border-radius: 14px; padding: 8px; text-align: center; font-size: 11px; }
+        .partner-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 10px 0; }
+        .partner-item { background: #f5faf7; border-radius: 12px; padding: 6px 2px; text-align: center; font-size: 9px; font-weight: 600; color: #1c6e58; }
+        .benefits-grid { display: flex; flex-direction: column; gap: 8px; margin: 10px 0; }
+        .benefit-item { display: flex; align-items: center; gap: 10px; padding: 8px; background: #f9fefb; border-radius: 14px; }
+        .benefit-icon { width: 36px; height: 36px; background: #e6f4ef; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+        .benefit-text strong { font-size: 13px; color: #1c6e58; display: block; margin-bottom: 2px; }
+        .benefit-text p { font-size: 10px; color: #4a6a5a; }
+        
+        .apply-form-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 16px;
+            margin-bottom: 16px;
+            border: 1px solid #1c6e58;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .apply-form-title {
+            font-size: 16px;
+            font-weight: 800;
+            color: #1c6e58;
+            margin-bottom: 16px;
+            border-left: 4px solid #e6a017;
+            padding-left: 10px;
+        }
+        .apply-row {
+            margin-bottom: 14px;
+        }
+        .apply-row label {
+            display: block;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1a5a48;
+            margin-bottom: 5px;
+        }
+        .apply-row input, .apply-row select {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid #cde0d9;
+            font-size: 13px;
+            background: #fefef9;
+        }
+        .copy-apply-btn {
+            background: linear-gradient(135deg, #1c6e58, #0f4f3e);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 14px;
+            width: 100%;
+            cursor: pointer;
+            margin-top: 8px;
+        }
+        .info-note {
+            background: #e8f5f0;
+            border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 10px;
+            margin: 10px 0;
+            color: #1a5a48;
+        }
+        .name-warning {
+            font-size: 10px;
+            color: #e6a017;
+            margin-top: 4px;
+            display: none;
+        }
+        .name-warning.show {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- ========== HOME VIEW ========== -->
+    <div id="homeView" class="view active-view">
+        <div class="official-banner">
+            <a href="https://reel-shrt.com" target="_blank">🏛️ Official Website : https://reel-shrt.com →</a>
+        </div>
+        
+        <div class="hero-company">
+            <div class="hero-logo">
+                <div class="hero-logo-icon"><div class="pg-letters">PG</div></div>
+                <div class="hero-logo-text"><div class="pg">PG MALL</div><div class="mall">Global E-commerce Platform · Est. 2018</div></div>
+            </div>
+            <div class="company-badge">🏛️ Legally Registered in Colorado, USA · Trusted in 150+ Countries</div>
+            <div class="company-name">PG Playground<br><span style="font-size: 18px;">PG Mall Official</span></div>
+            <div class="company-sub">Founded August 20, 2018 · Flexible Online Work · Daily Payment · 2,000,000+ Global Employees</div>
+            <div class="legal-row">📄 Registration No. : 20181650293 | Address : 1401 17th St, Denver, CO 80202<br>✅ Compliant · Government Verifiable · Global Certification</div>
+            <div class="contact-buttons-top">
+                <a href="https://t.me/haoyunl799" target="_blank" class="contact-btn contact-telegram">✈️ Telegram Manager</a>
+                <a href="#" target="_blank" class="contact-btn contact-signal" style="display:none;">💬 Signal Manager</a>
+            </div>
+        </div>
+        
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration · Start Your High-Income Journey</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary! 100 ETB internship bonus waiting for you!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div>
+            <div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div>
+            <div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div>
+            <div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        
+        <div class="feedback-barrage">
+            <div class="feedback-barrage-header"><h3>💬 Global Employee Reviews · Live Scrolling</h3><span class="feedback-count" id="feedbackCount">999,999+ Reviews</span></div>
+            <div class="ip-note">🌍 Real reviews from 150+ countries · Click any review to view IP address</div>
+            <div class="barrage-container" id="barrageContainer"><div class="barrage-track" id="barrageTrack"></div></div>
+            <div class="review-btn"><button id="openReviewModalBtn">👉 Share My Experience</button></div>
+        </div>
+        
+        <div style="background: linear-gradient(135deg, #1c6e58, #0f4f3e); border-radius: 24px; padding: 20px; margin: 16px 12px; color: white; text-align: center; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+            <div style="font-size: 28px; margin-bottom: 8px;">🌟</div>
+            <div style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">Join PG Mall and Start Your Path to Financial Freedom</div>
+            <div style="font-size: 12px; opacity: 0.9; margin-bottom: 16px;">5-20 minutes per day · Daily salary 60-165,000 ETB · Withdrawal in as fast as 2 hours</div>
+            <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
+                <div style="background: rgba(255,255,255,0.15); border-radius: 40px; padding: 6px 14px; font-size: 11px;">🏛️ Legally Registered in USA</div>
+                <div style="background: rgba(255,255,255,0.15); border-radius: 40px; padding: 6px 14px; font-size: 11px;">🌍 150+ Countries Covered</div>
+                <div style="background: rgba(255,255,255,0.15); border-radius: 40px; padding: 6px 14px; font-size: 11px;">👥 2M+ Employees Trust</div>
+                <div style="background: rgba(255,255,255,0.15); border-radius: 40px; padding: 6px 14px; font-size: 11px;">💰 Daily Payment · Zero Risk</div>
+            </div>
+        </div>
+        
+        <div class="footer">© PG Playground Inc. | Registration No. 20181650293 | Global Leading Online Work Platform</div>
+    </div>
+
+    <!-- ========== COMPANY VIEW ========== -->
+    <div id="companyView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">🏢 Company</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div><div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="section-title">🌟 About PG Mall</div>
+            <div class="card"><p><strong>PG Mall</strong> is a subsidiary of PG Playground Inc., specializing in brand digital marketing. Partnering with over 50 platforms including Amazon, Shopee, TikTok Shop, serving more than 5,000 brands globally.</p>
+            <div style="margin: 15px 0; text-align: center;"><img src="https://raw.githubusercontent.com/Luna06799/Luna/8f46467242c96938f7a149e6f055d54325b34c62/action.JPG" alt="Company Activity" style="width: 100%; max-width: 100%; border-radius: 16px;"></div>
+            <div class="grid-2col"><div class="stat-card"><span style="font-size:18px;">🏆</span><br>5,000+<br>Brands</div><div class="stat-card"><span style="font-size:18px;">🌍</span><br>150+<br>Countries</div><div class="stat-card"><span style="font-size:18px;">👥</span><br>2M+<br>Employees</div></div>
+            <div class="info-tip">✨ Earn money in your spare time, work from home with no门槛. Over 2 million employees worldwide trust us.</div></div>
+            <div class="section-title">🤝 Global Top Partners</div>
+            <div class="card"><div class="partner-grid"><div class="partner-item">🛍️ Amazon</div><div class="partner-item">📦 eBay</div><div class="partner-item">🎯 Temu</div><div class="partner-item">🐟 Shopee</div><div class="partner-item">🌍 AliExpress</div><div class="partner-item">📱 TikTok Shop</div><div class="partner-item">⭐ Mercado Libre</div><div class="partner-item">🌸 Rakuten</div><div class="partner-item">✨ SHEIN</div><div class="partner-item">🏪 Shopify</div><div class="partner-item">🎮 Walmart</div><div class="partner-item">🔥 Target</div><div class="partner-item">🌍 Konga</div><div class="partner-item">🛒 Jumia</div><div class="partner-item">🦁 Guzo (Ethiopia)</div><div class="partner-item">📚 Send (Ethiopia)</div><div class="partner-item">🛍️ EthioMall (Ethiopia)</div></div>
+            <div class="info-tip">🔒 Official · Real Brand Orders · Platform Fund Security · Global and Local E-commerce Coverage</div></div>
+            <div class="section-title">🔐 Safety & License</div>
+            <div class="card"><p>PG Playground is legally registered in Colorado, USA: <a href="#" style="color:#1c6e58;">Verification Link</a><br>Search <strong>PG Playground</strong> or File Number <strong>20181650293</strong> to verify.</p>
+            <div style="text-align:center; margin-top:10px;"><img src="https://raw.githubusercontent.com/Luna06799/Luna/6dad1ae74e7b2f125b5900e1eff39d4883c93031/Business%20License.png" alt="Business License" style="max-width:100%; border-radius:12px;"></div></div>
+        </div>
+    </div>
+
+    <!-- ========== APPLY VIEW ========== -->
+    <div id="applyView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">📝 Apply</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div><div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="apply-form-card">
+                <div class="apply-form-title">📋 Registration · Start Your High-Income Journey</div>
+                <div class="apply-row"><label>1. Full Name： <span style="color:#e6a017;">*</span></label><input type="text" id="fullName" placeholder="e.g., John Smith / Mohammed Ali" autocomplete="off"><div class="name-warning" id="fullNameWarning">⚠️ Please enter your full name</div></div>
+                <div class="apply-row"><label>2. Gender：</label><select id="gender"><option>Male</option><option>Female</option><option>Other</option></select></div>
+                <div class="apply-row"><label>3. Age：</label><input type="number" id="age" placeholder="e.g., 28"></div>
+                <div class="apply-row"><label>4. Phone： <span style="color:#e6a017;">*</span></label><input type="tel" id="phone" placeholder="+251 912345678"></div>
+                <div class="apply-row"><label>5. City： <span style="color:#e6a017;">*</span></label><input type="text" id="city" placeholder="Addis Ababa / Dire Dawa"></div>
+                <div class="apply-row"><label>6. Withdrawal Bank：</label><select id="walletType"><option>Abysinia Bank</option><option>Awash Bank</option><option>CBE Bank</option><option>Oromia Bank</option><option>Telebirr Bank</option></select></div>
+                <div class="apply-row"><label>7. How did you hear about PG Mall？</label><select id="knowFrom"><option>Facebook</option><option>Telegram</option><option>Friend Recommendation</option><option>Other</option></select></div>
+                <button class="copy-apply-btn" id="copyApplyDataBtn">📋 Copy & Send to Manager · Start Your Daily Income Journey</button>
+                <div class="info-tip">✅ Fill in your name, phone and city, click copy and send to manager. The manager will provide the official registration link. Invitation code: <strong>337375</strong>. After registration, you will receive 100 ETB internship bonus to start your PG Mall wealth journey!</div>
+            </div>
+            <div class="contact-strip"><a href="https://t.me/haoyunl799" target="_blank">✈️ Telegram Manager</a><a href="#" target="_blank" class="signal-btn" style="display:none;">💬 Signal Manager</a></div>
+            <div class="card card-highlight"><div style="font-weight:700; margin-bottom:8px;">🎯 Fast Registration Process · 3 Steps to High Income</div>
+            <ol style="margin-left:20px; font-size:11px; line-height:1.8;"><li>Fill in your personal information (name, phone, city, etc.)</li><li>Click copy and send to Telegram manager</li><li>Manager sends official registration link → Complete registration (Invitation code: <strong>337375</strong>, verification code is the 4-digit number displayed on the right) → Start internship tasks → Become official employee after 2 days with daily salary 60-165,000 ETB!</li></ol>
+            <div class="info-tip">✨ Total internship income: 100 ETB (PG official internship bonus). After completing 2 days of internship, official employee daily salary is 60 - 165,000 ETB! Take action now, change starts today!</div></div>
+        </div>
+    </div>
+
+    <!-- ========== WORK GUIDE VIEW ========== -->
+    <div id="stepsView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">📖 Work Guide</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div><div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="section-title">🌟 About PG Mall Platform</div>
+            <div class="card"><p><strong>PG Mall</strong> is a work platform partnering with over 5,000 e-commerce companies worldwide, focusing on brand promotion and product visibility. We have over <strong>2 million online employees</strong> globally. All you need is a smartphone and 5-20 minutes per day to earn a stable daily income.</p>
+            <div class="info-tip" style="margin-top:10px;">🤝 Partners: Amazon, Shopee, TikTok Shop, AliExpress, eBay, Walmart, Guzo (Ethiopia), Send (Ethiopia), EthioMall (Ethiopia) and <strong>5,000+</strong> other platforms</div></div>
+            
+            <div class="section-title">🛍️ PG Mall · Global E-commerce Partners</div>
+            <div class="card card-highlight"><p><strong>PG Mall</strong> was founded in 2018 and is headquartered in Denver, Colorado, USA. This is an innovative e-commerce platform connecting global brands with online workers. Our platform covers over 150 countries, supports multiple languages and currencies, providing fair, transparent, and efficient online work opportunities for global users.</p>
+            <div class="info-tip" style="margin-top:10px;">📌 Our mission: Enable everyone to earn a stable income through online work while helping brands effectively promote their products. We firmly believe that everyone has the right to achieve financial freedom, and PG Mall is the best platform to realize this dream.</div></div>
+            
+            <div class="card"><div style="font-weight:700; margin-bottom:8px;">✅ Why Choose PG Mall？</div>
+            <ul style="margin-left:20px; font-size:11px; line-height:1.8;"><li>🏛️ <strong>Legal & Compliant</strong>: Legally registered company in Colorado, USA, registration number publicly verifiable</li>
+            <li>🌍 <strong>Global Coverage</strong>: 150+ countries, 5,000+ partner platforms, including Ethiopian local e-commerce platforms</li>
+            <li>👥 <strong>Massive Scale</strong>: 2M+ online employees worldwide, thousands of new members joining daily</li>
+            <li>💰 <strong>Stable Income</strong>: Daily salary payment, withdraw anytime, as fast as 2 hours</li>
+            <li>🔒 <strong>Fund Security</strong>: Deposit in your personal account, full refund upon departure, zero risk</li>
+            <li>⏱️ <strong>Flexible Time</strong>: 5-20 minutes per day, arrange freely without affecting your main job</li>
+            <li>📱 <strong>Simple Operation</strong>: Just a smartphone, no special skills required, beginners can quickly get started</li>
+            <li>👥 <strong>Team Commission</strong>: Invite friends to join, permanently earn 0.2% team commission, passive income stream</li></ul></div>
+            
+            <div class="section-title">💼 Your Work Content · Simple 4 Steps</div>
+            <div class="card card-highlight">
+                <p>Your job is to complete <strong>real product purchases</strong> through the PG Mall platform. With each purchase, you will receive <strong>promotion commission</strong> from the brand. The brand obtains real order data through your purchase behavior, thereby improving product ranking and exposure. This is a <strong>win-win</strong> cooperation model!</p>
+                <div class="info-tip" style="margin-top:10px;">
+                    ✅ Commission: Up to <strong>30,000 ETB</strong>/task depending on level<br>
+                    ✅ Daily tasks: <strong>5 to 80</strong> (5-20 minutes)<br>
+                    ✅ Internship period: <strong>2 days</strong>, PG internship bonus: 100 ETB<br>
+                    ✅ After internship: Official employee daily salary <strong>60 - 165,000 ETB</strong><br>
+                    ✅ Withdrawal methods: <strong>Abysinia Bank / Awash Bank / CBE Bank / Oromia Bank / Telebirr Bank</strong>, as fast as 2 hours
+                </div>
+                <div class="info-tip" style="margin-top:10px; background:#e8f5f0; border-left: 4px solid #1c6e58;">
+                    💡 <strong>About the internship period:</strong> The internship lasts 2 days, completing 5 tasks per day. The internship helps new members familiarize themselves with the platform operation process. After completing the internship, you can upgrade to an official employee and enjoy benefits such as daily automatic salary payment, automatic level upgrades, and team commissions!
+                </div>
+            </div>
+            
+            <div class="card card-highlight" style="background: #fef9e6; border-left: 4px solid #e6a017;">
+                <div style="font-weight:800; font-size:13px; color:#1c6e58; margin-bottom:8px;">📌 Detailed Work Explanation · Everything You Need to Know</div>
+                <p style="font-size:12px; line-height:1.5;">The essence of the work is to help brands <strong>create real order data</strong>, increase product <strong>exposure and sales</strong>, and generate <strong>positive reviews</strong>. To promote their products, brands will give back <strong style="color:#e6a017;">80% of the commission</strong> to employees. Each time you complete a purchase operation, you will receive the corresponding commission.<br><br>
+                ✅ You <strong>don't need to ship</strong> — The brand handles all logistics<br>
+                ✅ You <strong>won't receive any physical packages</strong> — Orders are used only for data statistics<br>
+                ✅ You <strong>don't need to sell anything</strong> — Just complete the purchase operation<br>
+                ✅ You <strong>don't need to advance funds</strong> — All order costs are borne by the brand<br>
+                ✅ You <strong>don't need to worry about after-sales</strong> — The brand handles all after-sales issues</p>
+                <div class="info-tip" style="margin-top:10px; background:#fff3e0;">🎁 The brand bears all promotion costs. You only need to contribute your time and actions! This is the charm of PG Mall — zero cost, zero risk, high reward!</div>
+            </div>
+            
+            <div class="section-title">🤝 Partnership Model with Brands</div>
+            <div class="card"><p>PG Mall maintains long-term partnerships with over 5,000 global brands. Brands publish promotion tasks through our platform, and employees earn commissions after completing tasks. Brands obtain real order data and product exposure, employees earn stable income, and the platform earns service fees — this is a <strong>triple-win</strong> ecosystem.</p>
+            <div class="info-tip" style="margin-top:10px;">💡 The brand bears all order costs, you don't need to advance any funds! This is the essential difference between PG Mall and other platforms.</div></div>
+            
+            <div class="section-title">🔒 Fund Security · 100% Guaranteed</div>
+            <div class="card card-highlight"><p>All transactions are conducted on the <strong>PG Mall</strong> platform. Brands pre-deposit funds on the platform, and the platform automatically calculates and distributes commissions to employee accounts. Your deposit (only 3,600 ETB) is all stored in <strong>your own account</strong>, never touched by the platform. <strong>Full refund</strong> upon departure, or you can also apply for a refund after 1 year.</p>
+            <div class="info-tip" style="margin-top:10px;">✅ Withdrawal methods: <strong>Abysinia Bank / Awash Bank / CBE Bank / Oromia Bank / Telebirr Bank</strong>, as fast as 2 hours, processed even on weekends. Funds are safe, withdrawals worry-free!</div></div>
+            
+            <div class="section-title">📅 Working Hours · Completely Free</div>
+            <div class="card card-highlight"><p>✅ <strong>Monday to Saturday</strong>: Complete tasks in 5-20 minutes daily, can be done at any time<br>✅ <strong>Sunday</strong>: Rest (manager still online for recharges, available for consultation anytime)<br>✅ <strong>Flexible schedule</strong>: Can be done in the morning, noon, or evening without affecting your main job and life<br>✅ <strong>Holidays as usual</strong>: Platform operates 365 days a year, your income never stops</p>
+            <div class="info-tip" style="margin-top:8px;">💪 The more persistent you are, the higher your salary! Persist in completing daily tasks, your level will automatically increase, and your daily salary will grow accordingly. From Junior 60 ETB/day to VIP8 165,000 ETB/day, your efforts will be richly rewarded!</div></div>
+            
+            <div class="card"><div style="font-weight:700; font-size:13px; margin-bottom:8px;">💡 Beginner FAQ</div>
+            <p style="font-size:11px;">• <strong>What if I don't know how to operate?</strong> → The manager will provide detailed operation tutorials, 24/7 online guidance, and will teach you until you learn.<br>
+            • <strong>Do I need to invest?</strong> → Only a 3,600 ETB deposit (fully refundable), no other fees. You also receive a 100 ETB bonus during the internship.<br>
+            • <strong>How much can I earn?</strong> → Starting from 60 ETB/day for Junior, up to 165,000 ETB/day for VIP8. The higher your level, the higher your income.<br>
+            • <strong>Is withdrawal really within 2 hours?</strong> → Yes! The platform promises as fast as 2 hours, processed even on weekends, never delayed.<br>
+            • <strong>Can I invite friends to join?</strong> → Absolutely! Invite friends to become official employees, and you will permanently earn 0.2% team commission on their daily order total.</p></div>
+        </div>
+    </div>
+
+    <!-- ========== TASKS VIEW ========== -->
+    <div id="tasksView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">🧑‍💻 Tasks</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div><div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="section-title">🧑‍💻 Detailed Internship Task Demo · 5 Easy Steps</div>
+            <div class="card">
+                <div class="task-step"><div style="font-weight:700; display: flex; align-items: center; gap: 6px;"><span style="background: #1c6e58; color: white; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px;">1</span> 📝 Register Account</div>
+                <p>① Click the official registration link sent by the manager → ② Enter your mobile number → ③ Set login password (recommend using letters + numbers) → ④ Enter invitation code <strong style="color:#e6a017;">337375</strong> → ⑤ Enter verification code (the 4-digit number displayed on the right) → ⑥ Click register → ⑦ Screenshot after successful registration → ⑧ Send the screenshot to the manager for confirmation. The entire registration process takes less than 2 minutes!</p></div>
+                
+                <div class="task-step"><div style="font-weight:700; display: flex; align-items: center; gap: 6px;"><span style="background: #1c6e58; color: white; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px;">2</span> 💰 Confirm Internship Bonus</div>
+                <p>① Log in to your PG Mall account → ② Click "User Center" in the top right or bottom menu → ③ Select "My Balance" → ④ Check your account balance, you will see <span class="money">100 ETB</span> automatically credited → ⑤ Screenshot and save → ⑥ Send to manager for confirmation. This 100 ETB is the internship bonus officially given by PG Mall to new employees, obtained without any operation!</p></div>
+                
+                <div class="task-step"><div style="font-weight:700; display: flex; align-items: center; gap: 6px;"><span style="background: #1c6e58; color: white; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px;">3</span> 📍 Add Shipping Address (Important!)</div>
+                <p>① After logging in, click "Account" or "My" → ② Select "Shipping Address Management" → ③ Click "Add New Address" → ④ Fill in your <strong>real complete address</strong> (including country, city, street, house number, postal code) → ⑤ Fill in recipient name and contact number → ⑥ Click "Save" → ⑦ Screenshot and save → ⑧ Send to manager for confirmation.<br>
+                <div class="warning-tip" style="margin-top: 6px;">⚠️ <strong>Important reminder:</strong> The address must be real! The brand needs a real address to verify the validity of the order. You will not receive any physical packages, but the address must be valid. This is a platform compliance requirement, please be sure to fill in a real address.</div></p></div>
+                
+                <div class="task-step"><div style="font-weight:700; display: flex; align-items: center; gap: 6px;"><span style="background: #1c6e58; color: white; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px;">4</span> 🛒 Find and Select Products</div>
+                <p>① Return to PG Mall homepage → ② Find and click <strong style="color:#1c6e58;">(ተለማማጆች / Internship Tasks)</strong> entry → ③ You will see <strong>5 products</strong> displayed on the page → ④ Each product shows an image, name, and price (each product unit price <span class="money">20 ETB</span>, borne by the brand) → ⑤ View the information of these 5 products one by one.<br>
+                📋 Example products of the day: 🧤 Gloves | 👖 Jeans | 👕 T-shirt | 👟 Sneakers | 🧦 Socks. Actual products depend on platform display and may vary daily.</p></div>
+                
+                <div class="task-step"><div style="font-weight:700; display: flex; align-items: center; gap: 6px;"><span style="background: #1c6e58; color: white; width: 20px; height: 20px; display: inline-flex; align-items: center; justify-content: center; border-radius: 50%; font-size: 11px;">5</span> 💰 Purchase Products · Earn Commission</div>
+                <p>① Select the first product → ② Click "Buy Now" or "Purchase Now" button → ③ Confirm the shipping address is the one you just added → ④ Click "Confirm Purchase" or "Submit Order" → ⑤ The page shows "Purchase Successful" → ⑥ Repeat the above steps to complete the purchase of all <strong>5 products</strong> → ⑦ Screenshot the entire purchase completion page → ⑧ Send all screenshots to the manager for confirmation.<br>
+                ✅ <strong>Complete 5 tasks daily to earn the day's commission!</strong> During the internship, 5 tasks per day, commission is 200 ETB/task, total daily income 1,000 ETB. After completing the 2-day internship, upgrade to an official employee with daily salary starting from 60 ETB up to 165,000 ETB/day!</p>
+                <div class="info-tip" style="margin-top: 8px;">✅ <strong>Zero Cost Reminder:</strong> You don't need to pay any fees! All order costs are borne by the brand. You just need to complete the purchase operation, and the commission will be automatically calculated into your account balance. Safe, simple, zero risk!</div>
+                </div>
+            </div>
+            
+            <div class="card card-highlight">
+                <div style="font-weight:700; font-size:13px;">📋 Internship Income Summary</div>
+                <div style="background: #e8f5f0; border-radius: 12px; padding: 10px; margin: 8px 0;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>📊 Internship Day 1:</span><span style="font-weight:800;">5 tasks × 200 ETB = 1,000 ETB</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 6px;"><span>📊 Internship Day 2:</span><span style="font-weight:800;">5 tasks × 200 ETB = 1,000 ETB</span></div>
+                    <div style="display: flex; justify-content: space-between; border-top: 1px dashed #cde0d9; padding-top: 6px;"><span>🎁 Registration Bonus:</span><span style="font-weight:800;">100 ETB</span></div>
+                    <div style="display: flex; justify-content: space-between; background: #1c6e58; color: white; padding: 6px 10px; border-radius: 8px; margin-top: 6px;"><span>💰 Total Internship Income:</span><span style="font-weight:800;">2,100 ETB</span></div>
+                </div>
+                <div class="info-tip" style="margin-top:8px;">🎯 <strong>After completing 2 days of internship, immediately contact the manager to upgrade to official employee!</strong> Official employees enjoy daily salary of 60-165,000 ETB, plus team commissions, level upgrades, and many more benefits. Internship is just the starting point, becoming an official employee is your path to wealth!</div>
+            </div>
+            
+            <div class="card">
+                <div style="font-weight:700; font-size:13px;">📋 Official Employee Daily Earnings Examples</div>
+                <div class="info-tip" style="margin-top:8px; background:#fff8e7;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>⭐ Junior (Deposit 3,600 ETB):</span><span class="money">60 ETB/day</span><span>→ Monthly 1,560 ETB</span></div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 4px;"><span>💎 VIP5 (Deposit 350,000 ETB):</span><span class="money">15,500 ETB/day</span><span>→ Monthly 403,000 ETB</span></div>
+                    <div style="display: flex; justify-content: space-between;"><span>🏆 VIP8 (Deposit 2,400,000 ETB):</span><span class="money">165,000 ETB/day</span><span>→ Monthly 4,290,000 ETB</span></div>
+                </div>
+                <div class="info-tip" style="margin-top:8px;">💡 The higher the deposit → The higher the level → The higher the daily salary! After completing the internship, contact the manager to recharge your deposit, and the system will automatically upgrade your level, doubling your daily salary!</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== BENEFITS VIEW ========== -->
+    <div id="benefitsView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">⭐ Benefits</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div><div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="card card-gold">
+                <div style="text-align:center;"><span style="font-size:40px;">🌟</span><div style="font-size:17px; font-weight:800; color:#1c6e58; margin-top:4px;">Intern vs Official Employee</div><div style="font-size:12px; color:#e6a017; margin-top:4px;">One step away, income worlds apart!</div></div>
+                
+                <div style="background: #fff3e0; border-radius: 16px; padding: 12px; margin: 8px 0; text-align: center; border: 1px solid #ffda7c;">
+                    <div style="font-size: 13px; font-weight: 800; color: #e6a017;">📝 Intern (Only 2 Days Trial)</div>
+                    <div style="display: flex; justify-content: space-around; margin-top: 10px; flex-wrap: wrap; gap: 10px;">
+                        <div><span style="font-size: 12px;">✅ Daily Tasks</span><br><span style="font-size: 20px; font-weight: 800; color: #1c6e58;">5</span></div>
+                        <div><span style="font-size: 12px;">✅ Earnings per Task</span><br><span style="font-size: 20px; font-weight: 800; color: #1c6e58;">200 ETB</span></div>
+                        <div><span style="font-size: 12px;">✅ Total Daily Income</span><br><span style="font-size: 20px; font-weight: 800; color: #1c6e58;">1,000 ETB</span></div>
+                        <div><span style="font-size: 12px;">✅ Internship Duration</span><br><span style="font-size: 20px; font-weight: 800; color: #1c6e58;">Only 2 Days</span></div>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 12px; background: #fff8e7; padding: 6px; border-radius: 10px;">
+                        💡 2-day internship total: <strong style="font-size: 16px; color: #e6a017;">2,000 ETB</strong> (including 100 ETB PG bonus)
+                    </div>
+                    <div style="margin-top: 8px; font-size: 11px; color: #8a6e3a;">
+                        ⏰ After the internship period, you must upgrade to official employee to continue working
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin: 15px 0;">
+                    <div style="font-size: 28px; font-weight: 800; color: #e6a017;">👇 Upgrade to Official Employee 👇</div>
+                    <div style="font-size: 40px; color: #1c6e58;">⬇️ ⬇️ ⬇️</div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #1c6e58 0%, #0f4f3e 100%); border-radius: 20px; padding: 16px; margin: 8px 0; text-align: center; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                    <div style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">⭐ Official Employee · Path to Financial Freedom ⭐</div>
+                    <div style="height: 2px; background: #ffda7c; margin: 10px auto; width: 60px;"></div>
+                    <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 12px; margin: 15px 0;">
+                        <div><span style="font-size: 11px; opacity: 0.9;">🚀 Junior Daily Salary</span><br><span style="font-size: 24px; font-weight: 800;">60 ETB</span></div>
+                        <div><span style="font-size: 11px; opacity: 0.9;">💎 VIP5 Daily Salary</span><br><span style="font-size: 24px; font-weight: 800;">15,500 ETB</span></div>
+                        <div><span style="font-size: 11px; opacity: 0.9;">🏆 VIP8 Daily Salary</span><br><span style="font-size: 24px; font-weight: 800;">165,000 ETB</span></div>
+                    </div>
+                    <div style="background: #ffda7c20; border-radius: 14px; padding: 10px; margin-top: 8px; backdrop-filter: blur(4px);">
+                        <div style="font-size: 13px; font-weight: 700;">📊 Shocking Comparison: 1 Day as Official Employee ≈ 165 Days as Intern!</div>
+                        <div style="font-size: 11px; margin-top: 5px;">Interns earn at most 2,000 ETB in 2 days, while VIP8 official employees earn 165,000 ETB in a single day!</div>
+                    </div>
+                </div>
+                
+                <div class="info-tip" style="background:#e8f5f0; text-align:center; margin-top: 12px;">
+                    💡 <strong>🔥 Why You Must Become an Official Employee?</strong><br>
+                    ❌ Intern: 5 tasks per day × 200 ETB = 1,000 ETB/day, <strong>only 2 days trial</strong>, automatically stops after expiration!<br>
+                    ✅ Official Employee: <strong>Permanent work eligibility</strong>, daily salary starting from 60 ETB, up to <strong>165,000 ETB/day</strong>!<br>
+                    🚀 After becoming an official employee, you will receive: Daily automatic salary payment + automatic level upgrades + team commissions + as fast as 2-hour withdrawal!
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #fff8e7, #fff3d6); border-radius: 16px; padding: 12px; margin-top: 12px; text-align: center; border: 1px solid #e6a017;">
+                    <div style="font-size: 14px; font-weight: 800; color: #1c6e58;">✨ Official Employee Exclusive Benefits ✨</div>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 10px;">
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">💰 Daily Automatic Payment</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">📈 Higher Level = Higher Income</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">💳 As Fast as 2H Withdrawal</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">👥 0.2% Team Commission</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">🔒 100% Refund Guarantee</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">⏱️ 5-20 Minutes/Day</span>
+                        <span style="background: #1c6e58; color: white; padding: 4px 12px; border-radius: 20px; font-size: 11px;">🌍 2M+ Global Team</span>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 18px;">
+                    <div style="background: linear-gradient(135deg, #e6a017, #ffda7c); border-radius: 50px; padding: 10px 20px; display: inline-block; animation: pulse 1.5s infinite; box-shadow: 0 4px 15px rgba(230,160,23,0.4);">
+                        <span style="font-weight: 800; font-size: 16px; color: #1a5a48;">🎯 Join Now and Start Your High-Income Life! 🎯</span>
+                    </div>
+                </div>
+            </div>
+            
+            <style>
+                @keyframes pulse {
+                    0% { transform: scale(1); opacity: 1; }
+                    50% { transform: scale(1.02); opacity: 0.95; box-shadow: 0 0 0 6px rgba(230,160,23,0.3); }
+                    100% { transform: scale(1); opacity: 1; }
+                }
+            </style>
+            
+            <div style="background: linear-gradient(135deg, #ffffff 0%, #f0f7f4 100%); border-radius: 24px; padding: 20px; margin: 16px 0; border: 1px solid #1c6e58; box-shadow: 0 8px 24px rgba(0,0,0,0.08);">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 32px;">👑</span>
+                    <div style="font-size: 20px; font-weight: 800; color: #1c6e58; margin-top: 6px;">PG Mall Official Employee · Exclusive Benefits</div>
+                    <div style="height: 3px; width: 80px; background: linear-gradient(90deg, #e6a017, #1c6e58); margin: 10px auto;"></div>
+                    <div style="font-size: 13px; color: #5a6e66;">Trusted by 2,000,000+ employees worldwide</div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin: 20px 0;">
+                    <div style="background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #1c6e58;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                            <span style="font-size: 28px;">💰</span>
+                            <span style="font-size: 16px; font-weight: 800; color: #1c6e58;">Daily Automatic Payment · Never Late</span>
+                        </div>
+                        <div style="font-size: 12px; color: #4a6a5a; line-height: 1.5;">Your salary is automatically credited to your account every day, from Junior 60 ETB/day to VIP8 up to 165,000 ETB/day. The higher your level, the higher your daily salary, with no upper limit on income!</div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #1c6e58;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                            <span style="font-size: 28px;">📈</span>
+                            <span style="font-size: 16px; font-weight: 800; color: #1c6e58;">Automatic Level Upgrades · Income Doubles</span>
+                        </div>
+                        <div style="font-size: 12px; color: #4a6a5a; line-height: 1.5;">No application needed, the system automatically upgrades you based on your deposit. Junior → VIP1 → VIP2 ... → VIP8. The higher your level, the higher your daily task commission, and your income multiplies!</div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #1c6e58;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                            <span style="font-size: 28px;">💳</span>
+                            <span style="font-size: 16px; font-weight: 800; color: #1c6e58;">As Fast as 2H Withdrawal · Weekends Included</span>
+                        </div>
+                        <div style="font-size: 12px; color: #4a6a5a; line-height: 1.5;">Supported banks: Abysinia Bank, Awash Bank, CBE Bank, Oromia Bank, Telebirr Bank. Withdrawal requests are processed in as fast as 2 hours, even on weekends!</div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #1c6e58;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                            <span style="font-size: 28px;">👥</span>
+                            <span style="font-size: 16px; font-weight: 800; color: #1c6e58;">0.2% Team Commission · Permanent Passive Income</span>
+                        </div>
+                        <div style="font-size: 12px; color: #4a6a5a; line-height: 1.5;">Invite friends to join as your downline, and you will permanently receive 0.2% of their daily order total as commission. The higher your friends' level, the more commission you earn. Earn money while you sleep!</div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 20px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); border-left: 4px solid #1c6e58;">
+                        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 10px;">
+                            <span style="font-size: 28px;">🔒</span>
+                            <span style="font-size: 16px; font-weight: 800; color: #1c6e58;">100% Refund Guarantee · Zero Risk</span>
+                        </div>
+                        <div style="font-size: 12px; color: #4a6a5a; line-height: 1.5;">Only 3,600 ETB deposit, all stored in YOUR personal account, never touched by the platform. Full refund upon departure, or apply for refund after 1 year. Truly zero risk!</div>
+                    </div>
+                </div>
+                
+                <div style="background: linear-gradient(135deg, #e8f5f0, #d0ebe2); border-radius: 20px; padding: 16px; margin: 16px 0;">
+                    <div style="font-size: 15px; font-weight: 800; color: #1c6e58; text-align: center; margin-bottom: 12px;">🏆 Your Promotion Ladder · Income at a Glance 🏆</div>
+                    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px;">
+                        <div style="flex: 1; text-align: center; background: white; border-radius: 12px; padding: 8px 4px; min-width: 70px;">
+                            <div style="font-size: 11px; color: #6f9081;">⭐ Junior</div>
+                            <div style="font-size: 14px; font-weight: 800; color: #1c6e58;">60/day</div>
+                            <div style="font-size: 10px;">3,600 deposit</div>
+                        </div>
+                        <div style="font-size: 20px; color: #e6a017;">→</div>
+                        <div style="flex: 1; text-align: center; background: white; border-radius: 12px; padding: 8px 4px; min-width: 70px;">
+                            <div style="font-size: 11px; color: #6f9081;">VIP3</div>
+                            <div style="font-size: 14px; font-weight: 800; color: #1c6e58;">2,500/day</div>
+                            <div style="font-size: 10px;">68,000 deposit</div>
+                        </div>
+                        <div style="font-size: 20px; color: #e6a017;">→</div>
+                        <div style="flex: 1; text-align: center; background: white; border-radius: 12px; padding: 8px 4px; min-width: 70px;">
+                            <div style="font-size: 11px; color: #6f9081;">VIP5</div>
+                            <div style="font-size: 14px; font-weight: 800; color: #1c6e58;">15,500/day</div>
+                            <div style="font-size: 10px;">350,000 deposit</div>
+                        </div>
+                        <div style="font-size: 20px; color: #e6a017;">→</div>
+                        <div style="flex: 1; text-align: center; background: white; border-radius: 12px; padding: 8px 4px; min-width: 70px;">
+                            <div style="font-size: 11px; color: #6f9081;">🏆 VIP8</div>
+                            <div style="font-size: 14px; font-weight: 800; color: #e6a017;">165,000/day</div>
+                            <div style="font-size: 10px;">2,400,000 deposit</div>
+                        </div>
+                    </div>
+                    <div style="text-align: center; margin-top: 12px; font-size: 11px; color: #1c6e58;">💡 Higher deposit → Higher level → Higher daily salary → Unlimited income!</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 16px 0;">
+                    <div style="background: #1c6e58; color: white; border-radius: 16px; padding: 12px 16px; text-align: center; flex: 1; min-width: 150px;">
+                        <div style="font-size: 12px; opacity: 0.9;">Junior · Annual Income</div>
+                        <div style="font-size: 22px; font-weight: 800;">18,720 ETB</div>
+                        <div style="font-size: 10px; opacity: 0.8;">60/day · Easy Start</div>
+                    </div>
+                    <div style="background: #e6a017; color: #1a5a48; border-radius: 16px; padding: 12px 16px; text-align: center; flex: 1; min-width: 150px;">
+                        <div style="font-size: 12px; opacity: 0.9;">VIP5 · Annual Income</div>
+                        <div style="font-size: 22px; font-weight: 800;">4,836,000 ETB</div>
+                        <div style="font-size: 10px; opacity: 0.8;">15,500/day · Wealth Upgrade</div>
+                    </div>
+                    <div style="background: linear-gradient(135deg, #ffda7c, #e6a017); color: #1a5a48; border-radius: 16px; padding: 12px 16px; text-align: center; flex: 1; min-width: 150px; box-shadow: 0 4px 12px rgba(230,160,23,0.3);">
+                        <div style="font-size: 12px; opacity: 0.9;">🏆 VIP8 · Annual Income 🏆</div>
+                        <div style="font-size: 22px; font-weight: 800;">51,480,000 ETB</div>
+                        <div style="font-size: 10px; opacity: 0.8;">165,000/day · Financial Freedom</div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 16px; padding: 12px; background: #fff8e7; border-radius: 16px; border: 1px solid #e6a017;">
+                    <div style="font-size: 14px; font-weight: 700; color: #1c6e58;">🚀 Don't Let This Opportunity Slip Away!</div>
+                    <div style="font-size: 12px; color: #5a6e66; margin-top: 6px;">Internship is just a 2-day trial. Becoming an official employee is the start of your lifelong earning journey. Just 5-20 minutes a day with a smartphone.</div>
+                    <div style="font-size: 13px; font-weight: 800; color: #e6a017; margin-top: 10px;">Upgrade to official employee now and start your path to financial freedom!</div>
+                </div>
+            </div>
+            
+            <div class="card"><div style="font-weight:700; font-size:15px; margin-bottom:10px; color:#1c6e58;">✨ By Becoming an Official Employee, You Will Receive:</div>
+            <div class="benefits-grid"><div class="benefit-item"><div class="benefit-icon">💰</div><div class="benefit-text"><strong>Daily Automatic Payment</strong><p>Your salary is automatically credited every day</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">📈</div><div class="benefit-text"><strong>Higher Level = Higher Income</strong><p>Junior 60/day → VIP8 165,000/day, automatic upgrades</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">💳</div><div class="benefit-text"><strong>Withdraw Anytime, As Fast as 2 Hours</strong><p>Abysinia/Awash/CBE/Oromia/Telebirr Bank, weekends included</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">👥</div><div class="benefit-text"><strong>Invite Friends, Passive Income</strong><p>Permanent 0.2% team commission</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">🔒</div><div class="benefit-text"><strong>100% Refund Guarantee</strong><p>Only 3,600 ETB deposit, fully refundable upon departure</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">⏱️</div><div class="benefit-text"><strong>Time Freedom</strong><p>5-20 minutes per day, just a smartphone</p></div></div>
+            <div class="benefit-item"><div class="benefit-icon">🏛️</div><div class="benefit-text"><strong>Compliant Company</strong><p>Registered in Colorado, USA, 2M+ global employees</p></div></div></div></div>
+            <div class="card card-highlight"><div style="font-weight:700; font-size:14px; margin-bottom:8px;">📊 Your Income Potential</div>
+            <div style="font-size:11px; line-height:1.6;"><div>✅ Junior: <strong class="money">60/day</strong> → <strong class="money">1,560/month</strong> → <strong class="money">18,720/year</strong></div>
+            <div>✅ VIP5: <strong class="money">15,500/day</strong> → <strong class="money">403,000/month</strong> → <strong class="money">4,836,000/year</strong></div>
+            <div>✅ VIP8: <strong class="money">165,000/day</strong> → <strong class="money">4,290,000/month</strong> → <strong class="money">51,480,000/year</strong></div></div>
+            <div class="info-tip" style="margin-top:10px; text-align:center;">💪 Just 5-20 minutes per day, internship is just a 2-day trial, becoming an official employee is the start of your lifelong earning journey!</div></div>
+            <button class="action-btn" id="goToApplyFromBenefits" style="background: linear-gradient(135deg, #e6a017, #ffda7c); border: none; color: #1a5a48; font-weight: 800; padding: 14px; border-radius: 60px; width: 100%; cursor: pointer; margin-top: 10px; font-size: 16px;">📝 Apply Now to Become an Official Employee →</button>
+        </div>
+    </div>
+
+    <!-- ========== SALARY VIEW ========== -->
+    <div id="salaryView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">💰 Salary</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div>
+            <div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <!-- 原有薪资表格保持不变 -->
+            <div class="card">
+                <div class="table-wrapper">
+                    <table class="salary-table">
+                        <thead>
+                            <tr><th>Level</th><th>Daily Salary (ETB)</th><th>Monthly Salary (ETB)</th><th>Deposit Requirement (ETB)</th><th>Daily Tasks</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background:#eef5f1;"><td style="font-weight:700;">⭐ Junior</th><td class="money">60</th><td class="money">1,560</th><td class="money">3,600</th><td>5</th></tr>
+                            <tr><td style="font-weight:700;">VIP 1</th><td class="money">280</th><td class="money">7,280</th><td class="money">9,000</th><td>5</th></tr>
+                            <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 2</th><td class="money">800</th><td class="money">20,800</th><td class="money">24,000</th><td>10</th></tr>
+                            <tr><td style="font-weight:700;">VIP 3</th><td class="money">2,500</th><td class="money">65,000</th><td class="money">68,000</th><td>15</th></tr>
+                            <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 4</th><td class="money">9,100</th><td class="money">236,600</th><td class="money">240,000</th><td>25</th></tr>
+                            <tr><td style="font-weight:700;">VIP 5</th><td class="money">15,500</th><td class="money">403,000</th><td class="money">350,000</th><td>30</th></tr>
+                            <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 6</th><td class="money">43,000</th><td class="money">1,118,000</th><td class="money">900,000</th><td>50</th></tr>
+                            <tr><td style="font-weight:700;">VIP 7</th><td class="money">90,000</th><td class="money">2,340,000</th><td class="money">1,650,000</th><td>60</th></tr>
+                            <tr style="background:#eef5f1;"><td style="font-weight:700;">🏆 VIP 8</th><td class="money">165,000</th><td class="money">4,290,000</th><td class="money">2,400,000</th><td>80</th></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="salary-note">⭐ Your account balance determines your level. Junior: 3,600 ETB | VIP8: 2,400,000 ETB</div>
+            </div>
+            
+            <!-- 全新生动大气的薪资说明内容 -->
+            <div style="background: linear-gradient(135deg, #1c6e58 0%, #0f4f3e 100%); border-radius: 28px; padding: 24px; margin: 20px 0; color: white; box-shadow: 0 12px 30px rgba(0,0,0,0.2);">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 44px;">📈💰</span>
+                    <div style="font-size: 24px; font-weight: 800; margin-top: 10px; letter-spacing: 1px;">Your Income · Your Control</div>
+                    <div style="height: 3px; width: 80px; background: #ffda7c; margin: 12px auto;"></div>
+                    <div style="font-size: 13px; opacity: 0.9;">Higher Deposit → Higher Level → Higher Daily Salary → Financial Freedom</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 16px; text-align: center; flex: 1; min-width: 130px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 12px; opacity: 0.85;">Minimum Deposit</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #ffda7c;">3,600 ETB</div>
+                        <div style="font-size: 13px; font-weight: 700; margin-top: 6px;">⭐ Junior</div>
+                        <div style="font-size: 20px; font-weight: 800;">60/day</div>
+                        <div style="font-size: 11px; margin-top: 4px;">→ 1,560/month</div>
+                    </div>
+                    <div style="font-size: 30px; display: flex; align-items: center; color: #ffda7c;">→</div>
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 16px; text-align: center; flex: 1; min-width: 130px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 12px; opacity: 0.85;">Medium Deposit</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #ffda7c;">350,000 ETB</div>
+                        <div style="font-size: 13px; font-weight: 700; margin-top: 6px;">💎 VIP5</div>
+                        <div style="font-size: 20px; font-weight: 800;">15,500/day</div>
+                        <div style="font-size: 11px; margin-top: 4px;">→ 403,000/month</div>
+                    </div>
+                    <div style="font-size: 30px; display: flex; align-items: center; color: #ffda7c;">→</div>
+                    <div style="background: linear-gradient(135deg, #ffda7c, #e6a017); border-radius: 20px; padding: 16px; text-align: center; flex: 1; min-width: 130px; color: #1a5a48; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                        <div style="font-size: 12px; opacity: 0.85;">Maximum Deposit</div>
+                        <div style="font-size: 28px; font-weight: 800; color: #1a5a48;">2,400,000 ETB</div>
+                        <div style="font-size: 13px; font-weight: 700; margin-top: 6px;">🏆 VIP8</div>
+                        <div style="font-size: 20px; font-weight: 800;">165,000/day</div>
+                        <div style="font-size: 11px; margin-top: 4px;">→ 4,290,000/month</div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.25); border-radius: 20px; padding: 18px; margin-top: 12px; text-align: center;">
+                    <div style="font-size: 16px; font-weight: 800;">🚀 From Junior to VIP8 — Your Income Grows 2,750 Times! 🚀</div>
+                    <div style="font-size: 12px; margin-top: 8px; line-height: 1.5;">Just 5-20 minutes per day with a smartphone. Start with 60 ETB/day and watch your earnings soar to 165,000 ETB/day!</div>
+                    <div style="font-size: 14px; font-weight: 700; margin-top: 12px; color: #ffda7c;">✨ The more you deposit, the higher your level — the higher your income! ✨</div>
+                </div>
+            </div>
+            
+            <!-- 年收入对比卡片 - 全新生动版本 -->
+            <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 20px 0;">
+                <div style="background: #e8f5f0; border-radius: 20px; padding: 18px; text-align: center; flex: 1; min-width: 160px; border: 1px solid #1c6e58; transition: transform 0.2s ease;">
+                    <div style="font-size: 14px; color: #6f9081; font-weight: 600;">⭐ Junior · Easy Start</div>
+                    <div style="font-size: 36px; font-weight: 800; color: #1c6e58; margin: 8px 0;">18,720 ETB</div>
+                    <div style="font-size: 11px; color: #8aa99b;">Annual Income</div>
+                    <div style="font-size: 11px; color: #1c6e58; margin-top: 6px;">✨ 60/day · Perfect for beginners</div>
+                </div>
+                <div style="background: #e8f5f0; border-radius: 20px; padding: 18px; text-align: center; flex: 1; min-width: 160px; border: 1px solid #1c6e58; transition: transform 0.2s ease;">
+                    <div style="font-size: 14px; color: #6f9081; font-weight: 600;">💎 VIP5 · Wealth Upgrade</div>
+                    <div style="font-size: 36px; font-weight: 800; color: #1c6e58; margin: 8px 0;">4,836,000 ETB</div>
+                    <div style="font-size: 11px; color: #8aa99b;">Annual Income</div>
+                    <div style="font-size: 11px; color: #1c6e58; margin-top: 6px;">✨ 15,500/day · Life-changing income</div>
+                </div>
+                <div style="background: linear-gradient(135deg, #fff8e7, #fff3d6); border-radius: 20px; padding: 18px; text-align: center; flex: 1; min-width: 160px; border: 2px solid #e6a017; box-shadow: 0 8px 20px rgba(230,160,23,0.25);">
+                    <div style="font-size: 14px; color: #e6a017; font-weight: 700;">🏆 VIP8 · Financial Freedom 🏆</div>
+                    <div style="font-size: 36px; font-weight: 800; color: #e6a017; margin: 8px 0;">51,480,000 ETB</div>
+                    <div style="font-size: 11px; color: #8a6e3a;">Annual Income</div>
+                    <div style="font-size: 11px; color: #e6a017; margin-top: 6px;">🔥 165,000/day · True wealth</div>
+                </div>
+            </div>
+            
+            <!-- 额外收入潜力说明 -->
+            <div style="background: linear-gradient(135deg, #e8f5f0, #d0ebe2); border-radius: 24px; padding: 20px; margin: 16px 0;">
+                <div style="text-align: center; margin-bottom: 16px;">
+                    <span style="font-size: 32px;">💎</span>
+                    <div style="font-size: 18px; font-weight: 800; color: #1c6e58; margin-top: 6px;">Your Earning Potential at Every Level</div>
+                    <div style="height: 2px; width: 60px; background: #1c6e58; margin: 10px auto;"></div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px;">
+                    <div style="background: white; border-radius: 16px; padding: 12px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #1c6e58;">⭐ Junior (3,600 ETB)</div>
+                        <div style="font-size: 11px; color: #4a6a5a; margin-top: 4px;">5 tasks/day · 60 ETB/day</div>
+                        <div style="font-size: 12px; font-weight: 600; color: #e6a017; margin-top: 6px;">1,560 ETB/month | 18,720 ETB/year</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 12px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #1c6e58;">💎 VIP3 (68,000 ETB)</div>
+                        <div style="font-size: 11px; color: #4a6a5a; margin-top: 4px;">15 tasks/day · 2,500 ETB/day</div>
+                        <div style="font-size: 12px; font-weight: 600; color: #e6a017; margin-top: 6px;">65,000 ETB/month | 780,000 ETB/year</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 12px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #1c6e58;">🏆 VIP5 (350,000 ETB)</div>
+                        <div style="font-size: 11px; color: #4a6a5a; margin-top: 4px;">30 tasks/day · 15,500 ETB/day</div>
+                        <div style="font-size: 12px; font-weight: 600; color: #e6a017; margin-top: 6px;">403,000 ETB/month | 4.8M ETB/year</div>
+                    </div>
+                    <div style="background: white; border-radius: 16px; padding: 12px;">
+                        <div style="font-size: 13px; font-weight: 700; color: #1c6e58;">👑 VIP8 (2,400,000 ETB)</div>
+                        <div style="font-size: 11px; color: #4a6a5a; margin-top: 4px;">80 tasks/day · 165,000 ETB/day</div>
+                        <div style="font-size: 12px; font-weight: 600; color: #e6a017; margin-top: 6px;">4,290,000 ETB/month | 51.5M ETB/year</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 收入增长激励 -->
+            <div style="background: linear-gradient(135deg, #fff8e7, #fff3d6); border-radius: 24px; padding: 24px; margin: 16px 0; text-align: center; border: 1px solid #e6a017;">
+                <div style="font-size: 20px; font-weight: 800; color: #1c6e58;">🌟 Your Future is in Your Hands 🌟</div>
+                <div style="height: 2px; width: 60px; background: #e6a017; margin: 12px auto;"></div>
+                <div style="font-size: 13px; color: #5a6e66; line-height: 1.6; max-width: 500px; margin: 0 auto;">
+                    The higher your deposit, the higher your level — and the higher your daily salary. 
+                    From Junior at 60 ETB/day to VIP8 at 165,000 ETB/day, your income grows exponentially with every step.
+                </div>
+                <div style="font-size: 14px; font-weight: 700; color: #e6a017; margin-top: 16px;">📈 Don't wait — upgrade your level today and watch your earnings multiply!</div>
+                <button onclick="goToApplyPage()" style="background: linear-gradient(135deg, #e6a017, #ffda7c); border: none; color: #1a5a48; font-weight: 800; padding: 14px 32px; border-radius: 60px; margin-top: 20px; font-size: 16px; cursor: pointer; width: auto; min-width: 220px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">📝 Start Your Journey Now →</button>
+                <div style="margin-top: 16px; font-size: 11px; color: #8a6e3a;">⚡ Over 2,000,000 people have already transformed their lives with PG Mall</div>
+            </div>
+            
+            <div class="card card-highlight"><div style="font-weight:700; font-size:13px;">💳 Withdrawal</div><p style="font-size:11px;">✅ <strong>Abysinia Bank / Awash Bank / CBE Bank / Oromia Bank / Telebirr Bank</strong><br>✅ As fast as <strong>2 hours</strong><br>✅ Processed even on weekends</p></div>
+        </div>
+    </div>
+
+    <!-- ========== COMMISSION VIEW ========== -->
+    <div id="commissionView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">👥 Commission</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div>
+            <div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div class="commission-card"><div style="display:flex; align-items:center; gap:8px;"><span style="font-size:28px;">👥</span><strong style="font-size:15px;">Permanent Team Commission 0.2%</strong></div><p style="font-size:11px; margin-top:6px;">Every official employee you invite will bring you <strong style="color:#ffda7c;">0.2% of their daily order total</strong> as commission!</p><p style="font-size:10px; margin-top:4px;">✨ Automatically settled daily, paid along with your salary, permanent!</p></div>
+            
+            <div class="card"><div style="font-weight:700; margin-bottom:10px; text-align:center; font-size:13px;">📊 Daily Commission Based on Downline Level</div>
+            <div class="table-wrapper"><table class="commission-table"><thead><tr><th>Downline Level</th><th>Deposit (ETB)</th><th>Your Daily Commission (ETB)</th><th>Monthly Income (ETB)</th></tr></thead><tbody>
+                <tr style="background:#eef5f1;"><td>⭐ Junior</th><td>3,600</th><td class="commission-income">7.2</th><td>~187</th></tr>
+                <tr><td style="font-weight:700;">VIP 1</th><td>9,000</th><td class="commission-income">18</th><td>~468</th></tr>
+                <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 2</th><td>24,000</th><td class="commission-income">48</th><td>~1,248</th></tr>
+                <tr><td style="font-weight:700;">VIP 3</th><td>68,000</th><td class="commission-income">136</th><td>~3,536</th></tr>
+                <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 4</th><td>240,000</th><td class="commission-income">480</th><td>~12,480</th></tr>
+                <tr><td style="font-weight:700;">VIP 5</th><td>350,000</th><td class="commission-income">700</th><td>~18,200</th></tr>
+                <tr style="background:#eef5f1;"><td style="font-weight:700;">VIP 6</th><td>900,000</th><td class="commission-income">1,800</th><td>~46,800</th></tr>
+                <tr><td style="font-weight:700;">VIP 7</th><td>1,650,000</th><td class="commission-income">3,300</th><td>~85,800</th></tr>
+                <tr style="background:#eef5f1;"><td style="font-weight:700;">🏆 VIP 8</th><td>2,400,000</th><td class="commission-income">4,800</th><td>~124,800</th></tr>
+            </tbody></table></div>
+            <div class="info-tip">💡 This table shows commission from <strong>1 downline</strong>. The more you invite, the more you earn!</div></div>
+            
+            <div class="card"><div style="font-weight:700; margin-bottom:10px; font-size:13px;">📈 Multiple Downline Income Examples</div>
+            <div class="info-tip"><strong>✅ 5 VIP2 Downlines</strong><br>Daily Commission = 240 ETB → Monthly Income = 6,240 ETB</div>
+            <div class="info-tip"><strong>✅ 3 VIP5 Downlines</strong><br>Daily Commission = 2,100 ETB → Monthly Income = 54,600 ETB</div>
+            <div class="info-tip"><strong>✅ 10 VIP4 Downlines</strong><br>Daily Commission = 4,800 ETB → Monthly Income = 124,800 ETB</div></div>
+            
+            <div style="background: linear-gradient(135deg, #0a3b2f 0%, #1c6e58 100%); border-radius: 28px; padding: 24px; margin: 20px 0; color: white; box-shadow: 0 15px 35px rgba(0,0,0,0.2);">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 48px;">🌐👥</span>
+                    <div style="font-size: 22px; font-weight: 800; margin-top: 8px; letter-spacing: 1px;">Team Expansion · Unlimited Passive Income</div>
+                    <div style="height: 3px; width: 80px; background: #ffda7c; margin: 12px auto;"></div>
+                    <div style="font-size: 13px; opacity: 0.9;">One person's effort is not as good as a team's success! Let your network create value for you!</div>
+                </div>
+                
+                <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center; margin: 20px 0;">
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 14px; text-align: center; flex: 1; min-width: 140px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 36px;">👥</div>
+                        <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Permanent 0.2% Commission</div>
+                        <div style="font-size: 11px; opacity: 0.85;">Invite once, benefit for life</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 14px; text-align: center; flex: 1; min-width: 140px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 36px;">📅</div>
+                        <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Daily Automatic Settlement</div>
+                        <div style="font-size: 11px; opacity: 0.85;">Paid along with your salary, never delayed</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 14px; text-align: center; flex: 1; min-width: 140px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 36px;">📈</div>
+                        <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Higher Level = Higher Commission</div>
+                        <div style="font-size: 11px; opacity: 0.85;">The stronger your downline, the more you earn</div>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.12); border-radius: 20px; padding: 14px; text-align: center; flex: 1; min-width: 140px; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.2);">
+                        <div style="font-size: 36px;">♾️</div>
+                        <div style="font-size: 15px; font-weight: 700; margin-top: 6px;">Unlimited Expansion</div>
+                        <div style="font-size: 11px; opacity: 0.85;">The bigger your team, the more astonishing your income</div>
+                    </div>
+                </div>
+                
+                <div style="background: rgba(0,0,0,0.3); border-radius: 24px; padding: 20px; margin-top: 10px;">
+                    <div style="font-size: 18px; font-weight: 800; text-align: center; margin-bottom: 16px;">💎 How Much Can You Earn? Real Examples 💎</div>
+                    <div style="display: flex; flex-wrap: wrap; gap: 16px; justify-content: center;">
+                        <div style="background: #1a5a48; border-radius: 18px; padding: 14px 16px; text-align: center; flex: 1; min-width: 160px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <div style="font-size: 11px; opacity: 0.85;">Invite 10 VIP4 Downlines</div>
+                            <div style="font-size: 32px; font-weight: 800; color: #ffda7c;">4,800 ETB</div>
+                            <div style="font-size: 13px;">Daily Passive Income</div>
+                            <div style="font-size: 12px; margin-top: 6px;">→ Monthly <strong style="color:#ffda7c;">124,800 ETB</strong></div>
+                            <div style="font-size: 11px; opacity: 0.75; margin-top: 4px;">Yearly ≈ 1,500,000 ETB</div>
+                        </div>
+                        <div style="background: #1a5a48; border-radius: 18px; padding: 14px 16px; text-align: center; flex: 1; min-width: 160px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">
+                            <div style="font-size: 11px; opacity: 0.85;">Invite 5 VIP5 Downlines</div>
+                            <div style="font-size: 32px; font-weight: 800; color: #ffda7c;">3,500 ETB</div>
+                            <div style="font-size: 13px;">Daily Passive Income</div>
+                            <div style="font-size: 12px; margin-top: 6px;">→ Monthly <strong style="color:#ffda7c;">91,000 ETB</strong></div>
+                            <div style="font-size: 11px; opacity: 0.75; margin-top: 4px;">Yearly ≈ 1,092,000 ETB</div>
+                        </div>
+                        <div style="background: #e6a017; border-radius: 18px; padding: 14px 16px; text-align: center; flex: 1; min-width: 160px; color: #1a5a48; box-shadow: 0 4px 12px rgba(230,160,23,0.3);">
+                            <div style="font-size: 11px; opacity: 0.85;">Invite 3 VIP8 Downlines</div>
+                            <div style="font-size: 32px; font-weight: 800;">14,400 ETB</div>
+                            <div style="font-size: 13px;">Daily Passive Income</div>
+                            <div style="font-size: 12px; margin-top: 6px;">→ Monthly <strong>374,400 ETB</strong></div>
+                            <div style="font-size: 11px; margin-top: 4px;">Yearly ≈ 4,492,800 ETB</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center; margin-top: 24px; padding: 16px; background: rgba(255,218,124,0.12); border-radius: 40px;">
+                    <div style="font-size: 16px; font-weight: 700;">🔥 Your Network is Your Wealth!</div>
+                    <div style="font-size: 12px; margin-top: 8px; line-height: 1.5;">The more friends you invite and the higher their levels, the more astonishing your passive income.<br>Earn money while you sleep!</div>
+                    <div style="font-size: 14px; font-weight: 800; color: #ffda7c; margin-top: 12px;">⭐ Become an official employee now, get your exclusive invitation link, and start your team expansion journey! ⭐</div>
+                </div>
+            </div>
+            
+            <div class="card card-highlight" style="background: linear-gradient(135deg, #fff8e7, #fff3d6); border: 1px solid #e6a017;">
+                <div style="font-weight:800; margin-bottom:8px; font-size:15px; color:#1c6e58; display: flex; align-items: center; gap: 8px;">💡 <span>How to Invite Friends? Super Simple 3 Steps</span></div>
+                <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: 10px;">
+                    <div style="flex: 1; background: white; border-radius: 16px; padding: 10px; text-align: center; min-width: 100px;">
+                        <div style="background: #1c6e58; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">1</div>
+                        <div style="font-size: 12px; font-weight: 700; margin-top: 6px;">Become Official Employee</div>
+                        <div style="font-size: 10px; color: #6f9081;">Complete internship, upgrade to official</div>
+                    </div>
+                    <div style="flex: 1; background: white; border-radius: 16px; padding: 10px; text-align: center; min-width: 100px;">
+                        <div style="background: #1c6e58; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">2</div>
+                        <div style="font-size: 12px; font-weight: 700; margin-top: 6px;">Get Exclusive Link</div>
+                        <div style="font-size: 10px; color: #6f9081;">System generates your invitation link</div>
+                    </div>
+                    <div style="flex: 1; background: white; border-radius: 16px; padding: 10px; text-align: center; min-width: 100px;">
+                        <div style="background: #1c6e58; color: white; width: 24px; height: 24px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700;">3</div>
+                        <div style="font-size: 12px; font-weight: 700; margin-top: 6px;">Share with Friends</div>
+                        <div style="font-size: 10px; color: #6f9081;">Friends register and you earn forever</div>
+                    </div>
+                </div>
+                <p style="font-size: 11px; margin-top: 12px; text-align: center;">✅ Automatic commission settlement · ✅ Higher friend level = higher commission · ✅ Permanent</p>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #1c6e58, #0f4f3e); border-radius: 24px; padding: 20px; margin: 12px 0; text-align: center; color: white; box-shadow: 0 8px 20px rgba(0,0,0,0.15);">
+                <div style="font-size: 18px; font-weight: 800; letter-spacing: 1px;">✨ Build Your Passive Income Empire ✨</div>
+                <div style="height: 2px; background: #ffda7c; width: 60px; margin: 10px auto;"></div>
+                <div style="font-size: 12px; line-height: 1.6; margin-bottom: 12px;">
+                    Imagine: While you sleep, vacation, or spend time with family, your team is still generating income for you!<br>
+                    That's the power of team commission — making your time more valuable!
+                </div>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 8px;">
+                    <div><span style="font-size: 24px; font-weight: 800;">10</span><br><span style="font-size: 10px;">Small Team</span><br><span class="money" style="color:#ffda7c;">Monthly 10-20k ETB</span></div>
+                    <div><span style="font-size: 24px; font-weight: 800;">50</span><br><span style="font-size: 10px;">Medium Team</span><br><span class="money" style="color:#ffda7c;">Monthly 50-100k ETB</span></div>
+                    <div><span style="font-size: 24px; font-weight: 800;">100+</span><br><span style="font-size: 10px;">Large Team</span><br><span class="money" style="color:#ffda7c;">Monthly 200k+ ETB</span></div>
+                </div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #fff8e7, #fff3d6); border-radius: 20px; padding: 18px; margin: 12px 0; text-align: center; border: 1px solid #e6a017;">
+                <div style="font-size: 16px; font-weight: 800; color: #1c6e58;">🌟 Don't Let This Opportunity Slip Away!</div>
+                <div style="font-size: 12px; color: #5a6e66; margin-top: 8px; line-height: 1.5;">Team commission is one of the most generous benefits PG Mall offers to official employees.<br>Just share your invitation link and you'll receive a steady stream of passive income.</div>
+                <div style="font-size: 14px; font-weight: 700; color: #e6a017; margin-top: 12px;">🚀 Become an official employee now and let your network create wealth for you!</div>
+                <button onclick="goToApplyPage()" style="background: linear-gradient(135deg, #e6a017, #ffda7c); border: none; color: #1a5a48; font-weight: 800; padding: 12px 28px; border-radius: 60px; margin-top: 16px; font-size: 15px; cursor: pointer; width: 80%; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">📝 Apply Now, Start Passive Income →</button>
+                <div style="margin-top: 12px; font-size: 10px; color: #8a6e3a;">Over 2,000,000 people have already achieved extra income with PG Mall</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ========== FAQ VIEW ========== -->
+    <div id="faqView" class="view">
+        <div class="nav-header"><button class="back-btn" onclick="goBack()">←</button><div class="page-title">❓ FAQ</div><button class="home-btn" onclick="goHome()">⌂</button></div>
+        <div class="universal-register-card">
+            <div class="reg-text">
+                <strong>📋 Registration</strong>
+                <p>Fill in your complete information, copy and send to manager to start earning daily salary!</p>
+            </div>
+            <button class="reg-btn" onclick="goToApplyPage()">✍️ Register Now</button>
+        </div>
+        <div class="inner-nav-cards">
+            <div class="inner-nav-card" data-page="company">🏢<br>Company</div><div class="inner-nav-card" data-page="apply">📝<br>Apply</div>
+            <div class="inner-nav-card" data-page="steps">📖<br>Work Guide</div><div class="inner-nav-card" data-page="tasks">🧑‍💻<br>Tasks</div>
+            <div class="inner-nav-card" data-page="benefits">⭐<br>Benefits</div>
+            <div class="inner-nav-card" data-page="salary">💰<br>Salary</div>
+            <div class="inner-nav-card" data-page="commission">👥<br>Commission</div>
+            <div class="inner-nav-card" data-page="faq">❓<br>FAQ</div>
+        </div>
+        <div class="scroll-content">
+            <div style="background: linear-gradient(135deg, #f0f7f4 0%, #ffffff 100%); border-radius: 28px; padding: 20px; margin-bottom: 16px; border: 1px solid #1c6e58; box-shadow: 0 4px 20px rgba(0,0,0,0.05);">
+                <div style="text-align: center; margin-bottom: 20px;">
+                    <span style="font-size: 42px;">❓</span>
+                    <div style="font-size: 22px; font-weight: 800; color: #1c6e58; margin-top: 8px;">Your Questions, Our Answers</div>
+                    <div style="height: 3px; width: 80px; background: linear-gradient(90deg, #e6a017, #1c6e58); margin: 12px auto;"></div>
+                    <div style="font-size: 13px; color: #5a6e66;">Everything about PG Mall, detailed answers here</div>
+                </div>
+                
+                <div class="faq-item"><div class="faq-question">❖ Do I need to work fixed hours? <span>▼</span></div><div class="faq-answer">No, you can do it anytime within the day, according to your convenience.</div></div>
+                <div class="faq-item"><div class="faq-question">❖ How is the internship bonus paid? <span>▼</span></div><div class="faq-answer">After registration, log in to your user center and your balance will show 100 ETB, which is PG's internship bonus for new employees.</div></div>
+                <div class="faq-item"><div class="faq-question">❖ How long does withdrawal take? <span>▼</span></div><div class="faq-answer">As fast as 2 hours, supported by Abysinia Bank, Awash Bank, CBE Bank, Oromia Bank, Telebirr Bank, processed even on weekends.</div></div>
+                <div class="faq-item"><div class="faq-question">❖ Is PG Mall a legal company? <span>▼</span></div><div class="faq-answer">Yes, PG Playground is legally registered in Colorado, USA (Registration No. 20181650293).</div></div>
+                <div class="faq-item"><div class="faq-question">❖ How does team commission work? <span>▼</span></div><div class="faq-answer">You receive 0.2% of your downline's daily order total as commission, permanent. The higher your downline's level, the more commission you earn!</div></div>
+                <div class="faq-item"><div class="faq-question">❖ What is the invitation code? <span>▼</span></div><div class="faq-answer">Invitation code: <strong>337375</strong>. The verification code is the 4-digit number displayed on the right when registering.</div></div>
+            </div>
+            
+            <div style="background: linear-gradient(135deg, #1c6e58 0%, #0f4f3e 100%); border-radius: 24px; padding: 24px; margin: 16px 0; text-align: center; color: white; box-shadow: 0 8px 24px rgba(0,0,0,0.15);">
+                <div style="font-size: 20px; font-weight: 800; letter-spacing: 1px;">✨ Still Have Questions? We're Here to Help ✨</div>
+                <div style="height: 2px; background: #ffda7c; width: 60px; margin: 12px auto;"></div>
+                <div style="font-size: 13px; line-height: 1.6; margin-bottom: 16px;">Whether it's about work processes, salary payments, or team commissions, our professional manager team is here to provide you with one-on-one guidance. Your success is our mission!</div>
+                <button onclick="goToApplyPage()" style="background: linear-gradient(135deg, #e6a017, #ffda7c); border: none; color: #1a5a48; font-weight: 800; padding: 14px 32px; border-radius: 60px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.2);">📝 Register Now, Start Your Wealth Journey →</button>
+                <div style="margin-top: 16px; font-size: 11px; opacity: 0.8;">Over 2,000,000 people have chosen PG Mall</div>
+            </div>
+            
+            <div class="contact-strip"><a href="https://t.me/haoyunl799" target="_blank">✈️ Telegram Manager</a><a href="#" target="_blank" class="signal-btn" style="display:none;">💬 Signal Manager</a></div>
+        </div>
+    </div>
+</div>
+
+<!-- Bottom Navigation -->
+<div class="bottom-nav">
+    <button class="bottom-nav-item" data-page="home">🏠<br>Home</button>
+    <button class="bottom-nav-item" data-page="company">🏢<br>Company</button>
+    <button class="bottom-nav-item" data-page="apply">📝<br>Apply</button>
+    <button class="bottom-nav-item" data-page="steps">📖<br>Work Guide</button>
+    <button class="bottom-nav-item" data-page="tasks">🧑‍💻<br>Tasks</button>
+    <button class="bottom-nav-item" data-page="benefits">⭐<br>Benefits</button>
+    <button class="bottom-nav-item" data-page="salary">💰<br>Salary</button>
+    <button class="bottom-nav-item" data-page="commission">👥<br>Commission</button>
+    <button class="bottom-nav-item" data-page="faq">❓<br>FAQ</button>
+</div>
+
+<!-- Review Modal -->
+<div id="reviewModal" class="review-modal">
+    <div class="review-modal-content">
+        <div class="review-modal-close" id="closeReviewModalBtn">✕</div>
+        <h4>📝 Share Your Experience</h4>
+        <div class="form-group"><label>👤 Your Name (can be anonymous)</label><input type="text" id="reviewName" placeholder="e.g., John, Maria, Ahmed"></div>
+        <div class="form-group"><label>📍 Country / City</label><input type="text" id="reviewLocation" placeholder="e.g., Ethiopia·Addis Ababa, Nigeria·Lagos"></div>
+        <div class="form-group"><label>💬 Your Review of PG Mall</label><textarea id="reviewMsg" rows="3" placeholder="Write your review here (max 200 characters)..." maxlength="200"></textarea><div class="char-count" id="charCount">0 / 200</div></div>
+        <button class="btn-submit" id="submitReviewBtn">✅ Submit My Review</button>
+        <p class="modal-note" style="font-size:10px; text-align:center; margin-top:12px;">✨ Your review will appear in the global employee scrolling section</p>
+    </div>
+</div>
+
+<a href="#" target="_blank" class="float-help" style="display:none;">💬</a>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+    // ========== PAGE NAVIGATION ==========
+    const views = {
+        home: document.getElementById('homeView'),
+        company: document.getElementById('companyView'),
+        apply: document.getElementById('applyView'),
+        steps: document.getElementById('stepsView'),
+        tasks: document.getElementById('tasksView'),
+        benefits: document.getElementById('benefitsView'),
+        salary: document.getElementById('salaryView'),
+        commission: document.getElementById('commissionView'),
+        faq: document.getElementById('faqView')
+    };
+    
+    function showView(viewId) {
+        Object.values(views).forEach(view => { if(view) view.classList.remove('active-view'); });
+        if(views[viewId]) views[viewId].classList.add('active-view');
+        document.querySelectorAll('.bottom-nav-item').forEach(item => {
+            item.classList.remove('active');
+            if(item.getAttribute('data-page') === viewId) item.classList.add('active');
+        });
+        window.scrollTo(0, 0);
+    }
+    
+    function goHome() { showView('home'); }
+    function goBack() { showView('home'); }
+    window.goToApplyPage = function() { showView('apply'); };
+    
+    document.getElementById('goToApplyFromBenefits')?.addEventListener('click', function() { showView('apply'); });
+    
+    document.querySelectorAll('.inner-nav-card').forEach(card => {
+        card.addEventListener('click', function() { const page = this.getAttribute('data-page'); if(page && views[page]) showView(page); });
+    });
+    document.querySelectorAll('.bottom-nav-item').forEach(item => {
+        item.addEventListener('click', function() { const page = this.getAttribute('data-page'); if(page && views[page]) showView(page); });
+    });
+    
+    // ========== FORM VALIDATION & COPY ==========
+    const fullNameInput = document.getElementById('fullName');
+    const nameWarning = document.getElementById('fullNameWarning');
+    function isFullNameValid(name) { return name && name.trim().length >= 2; }
+    function validateFullName() { 
+        const name = fullNameInput?.value || ""; 
+        if(!isFullNameValid(name)) { nameWarning?.classList.add('show'); return false; } 
+        else { nameWarning?.classList.remove('show'); return true; }
+    }
+    fullNameInput?.addEventListener('input', validateFullName);
+    
+    document.getElementById('copyApplyDataBtn')?.addEventListener('click', function() {
+        const name = document.getElementById('fullName')?.value.trim() || "";
+        const phone = document.getElementById('phone')?.value.trim() || "";
+        const city = document.getElementById('city')?.value.trim() || "";
+        if(!isFullNameValid(name)) { alert("Please enter your full name"); document.getElementById('fullName').focus(); return; }
+        if(!phone) { alert("Please enter your phone number"); document.getElementById('phone').focus(); return; }
+        if(!city) { alert("Please enter your city"); document.getElementById('city').focus(); return; }
+        const gender = document.getElementById('gender')?.value || "";
+        const age = document.getElementById('age')?.value.trim() || "";
+        const wallet = document.getElementById('walletType')?.value || "";
+        const knowFrom = document.getElementById('knowFrom')?.value || "";
+        const text = `📝 PG Mall Application\n\nName: ${name}\nGender: ${gender}\nAge: ${age}\nPhone: ${phone}\nCity: ${city}\nWithdrawal Bank: ${wallet}\nSource: ${knowFrom}\n\nInvitation Code: 337375 (Verification code is the 4-digit number displayed on the right)`;
+        navigator.clipboard.writeText(text).then(() => { alert("✅ Information copied! Please send to manager."); });
+    });
+    
+    // ========== BARRAGE SYSTEM - 30% Amharic content, NEVER STOPS ==========
+    const categoriesEn = {
+        companyImage: [
+            "PG Mall is legally registered in Colorado, USA. Verified company with 2M+ employees worldwide.",
+            "PG Playground Inc. has been operating since 2018 with official registration number 20181650293.",
+            "A trusted global e-commerce platform partnering with Amazon, Shopee, TikTok Shop and 5000+ brands.",
+            "The company has a physical office at 1401 17th St, Denver, Colorado. Fully legitimate business.",
+            "PG Mall is recognized as a reliable platform for online work with daily payments."
+        ],
+        scamClarification: [
+            "I personally verified the Colorado business license. This is NOT a scam. Everything is legitimate.",
+            "I was skeptical at first, but after checking the registration number 20181650293, it's 100% real.",
+            "For those calling this a scam, please verify the company records first. PG Mall is legally registered.",
+            "I've received my payments daily for 3 months now. Anyone saying scam is just misinformed.",
+            "The guarantee deposit is held in your own account, not taken by the platform. Zero risk."
+        ],
+        withdrawalProof: [
+            "Just withdrew 25,000 ETB via CBE Bank and received it within 2 hours! Amazing!",
+            "Daily payments have been consistent for me since joining. Never missed a single day.",
+            "Telebirr Bank withdrawal took only 45 minutes! Weekend processing too!",
+            "I've earned over 150,000 ETB in my first month. Payments are always on time.",
+            "My VIP4 salary of 9,100 ETB arrives automatically every single day."
+        ],
+        valueProposition: [
+            "The work is simple: just daily tasks taking 15 minutes. Perfect for extra income.",
+            "Helping brands increase product visibility while earning commission is a win-win situation.",
+            "You don't sell anything, don't ship anything, just create order data. So easy!",
+            "The 80% commission share from brands is incredibly generous. Best online work I've found.",
+            "Daily salary increases with your level. From 60 ETB to 165,000 ETB per day!"
+        ],
+        inviteFriends: [
+            "I invited 5 friends and now I'm earning additional 0.2% commission from their work daily.",
+            "My team has 12 members now. My passive income grows every day without extra work.",
+            "The referral system is amazing. Just share your link and earn forever from your friends' work.",
+            "My sister joined using my code and I receive 480 ETB daily from her VIP4 level.",
+            "Building a team is the smartest way to earn. I have 8 members and my commission keeps growing."
+        ],
+        callToAction: [
+            "Stop hesitating! Register now using code 337375 and start earning today.",
+            "The 3,600 ETB deposit is fully refundable. You have nothing to lose.",
+            "Complete the 2-day training and you'll receive daily salary afterward.",
+            "Don't miss this opportunity. Join millions already earning with PG Mall.",
+            "The registration process takes only 5 minutes. What are you waiting for?"
+        ],
+        testimonial: [
+            "As a single mother, PG Mall has changed my life. I earn 15,500 ETB daily working from home.",
+            "I was able to quit my part-time job after earning consistently for 6 months with PG Mall.",
+            "This platform is a blessing. I've earned over 2 million ETB in less than a year.",
+            "My friend recommended PG Mall and I'm so grateful. Best decision I ever made.",
+            "From 60 ETB to 90,000 ETB daily in 8 months. The growth is real and achievable."
+        ],
+        riskMitigation: [
+            "The 3,600 ETB guarantee stays in YOUR account. The platform never touches it.",
+            "If you decide to leave, you get your full deposit back. That's risk-free!",
+            "Zero risk: Your deposit is safe. The platform has a clear refund policy.",
+            "The guarantee is not a payment to the company. It's a deposit in your personal account.",
+            "After 1 year or upon departure, you receive full refund. Risk-free!"
+        ],
+        instantEngagement: [
+            "To the person asking if this is real: YES, I've been earning for 6 months. Check the license!",
+            "For those concerned about the deposit: It's in YOUR account. Read the contract carefully.",
+            "Someone said it's a scam? I've received 25 payments already. Don't spread misinformation.",
+            "Question about withdrawal: Abysinia/Awash/CBE/Oromia/Telebirr Bank all work perfectly.",
+            "Concerned about tasks? It's just a few clicks per day. Anyone can do it."
+        ],
+        emotionalAppeal: [
+            "Working with PG Mall gave me financial freedom. I'm no longer stressed about bills.",
+            "I feel proud to be part of this global community of 2 million workers.",
+            "Finally, a platform that values its workers and pays fairly. Thank you PG Mall!",
+            "The sense of belonging is real. We help each other succeed in the group chat.",
+            "PG Mall didn't just give me income, it gave me hope and confidence."
+        ]
+    };
+    
+    const categoriesAm = {
+        companyImage: [
+            "PG Mall በኮሎራዶ፣ አሜሪካ በህጋዊ መንገድ ተመዝግቧል። በዓለም ዙሪያ ከ2 ሚሊዮን በላይ ሰራተኞች ያሉት የተረጋገጠ ኩባንያ።",
+            "PG Playground Inc. ከ2018 ጀምሮ በሚሰራ ህጋዊ ተቋም ነው።",
+            "ከአማዞን፣ ሾፒ፣ ቲክቶክ ሾፕ እና ከ5,000 በላይ ብራንዶች ጋር የሚተባበር የታመነ የኤ-ኮሜርስ መድረክ።",
+            "ኩባንያው በዴንቨር፣ ኮሎራዶ አካላዊ ቢሮ አለው። ሙሉ በሙሉ ህጋዊ ንግድ።"
+        ],
+        scamClarification: [
+            "የኮሎራዶን የንግድ ፈቃድ በራሴ አረጋግጫለሁ። ይህ ማጭበርበር አይደለም። ሁሉም ነገር ህጋዊ ነው።",
+            "መጀመሪያ ላይ ተጠራጥሬ ነበር፣ ነገር ግን የምዝገባ ቁጥሩን 20181650293 ካረጋገጥኩ በኋላ፣ 100% እውነተኛ ነው።",
+            "ይህ ማጭበርበር ነው ለሚሉ፣ በመጀመሪያ የኩባንያውን መዝገቦች ያረጋግጡ። PG Mall በህጋዊ መንገድ ተመዝግቧል።"
+        ],
+        withdrawalProof: [
+            "በCBE ባንክ 25,000 ETB አውጥቻለሁ እና በ2 ሰዓት ውስጥ ደርሶኛል! በጣም ጥሩ!",
+            "ከተቀላቀልኩ ጀምሮ የዕለት ተዕለት ክፍያዎች ወጥነት አላቸው። አንድ ቀንም አላመለጠኝም።",
+            "የቴሌብር ባንክ መውጣት 45 ደቂቃ ብቻ ፈጅቷል! ቅዳሜ እና እሁድም ይሰራል!"
+        ],
+        valueProposition: [
+            "ስራው ቀላል ነው: በየቀኑ 15 ደቂቃ የሚወስዱ ተግባራት። ለተጨማሪ ገቢ ተስማሚ።",
+            "ብራንዶች የምርት ታይነት እንዲጨምሩ መርዳት እና ኮሚሽን ማግኘት ሁለቱንም የሚጠቅም ሁኔታ ነው።"
+        ],
+        inviteFriends: [
+            "5 ጓደኞችን ጋብዤ አሁን ከስራቸው ተጨማሪ 0.2% ኮሚሽን በየቀኑ እያገኝ ነው።",
+            "ቡድኔ 12 አባላት አሉት። ተገብሮ ገቢዬ ተጨማሪ ስራ ሳልሰራ በየቀኑ እያደገ ነው።"
+        ],
+        callToAction: [
+            "ማመንታት አቁሙ! ኮድ 337375 በመጠቀም አሁን ይመዝገቡ እና ዛሬ መገበያየት ይጀምሩ።",
+            "የ3,600 ETB ተቀማጭ ገንዘብ ሙሉ በሙሉ የሚመለስ ነው። ምንም ሊያጡ የሚችሉት ነገር የለም።"
+        ],
+        testimonial: [
+            "እንደ ነጠላ እናት፣ PG Mall ህይወቴን ለውጦታል። ከቤት ውስጥ በመስራት በየቀኑ 15,500 ETB እያገኝ ነው።",
+            "ከPG Mall ጋር ለ6 ወራት ያህል በተከታታይ ገቢ ካገኘሁ በኋላ የትርፍ ሰዓት ስራዬን ማቆም ቻልኩ።"
+        ],
+        riskMitigation: [
+            "የ3,600 ETB ዋስትና በእርስዎ አካውንት ውስጥ ይቆያል። መድረኩ በጭራሽ አይነካውም።",
+            "ለቀቅ ለማለት ከወሰኑ፣ ሙሉ ተቀማጭ ገንዘብዎን ይመልሳሉ። ያ ስጋት የሌለው ነው!"
+        ],
+        instantEngagement: [
+            "ይህ እውነት ነው ለሚሉ ሰዎች: አዎን, ለ6 ወራት ያህል ስሰራ ቆይቻለሁ. ፈቃዱን ያረጋግጡ!",
+            "ስለ ተቀማጭ ገንዘብ ለሚጨነቁ: በእርስዎ አካውንት ውስጥ ነው። ውሉን በጥንቃቄ ያንብቡ።"
+        ],
+        emotionalAppeal: [
+            "ከPG Mall ጋር መስራት የገንዘብ ነጻነት ሰጠኝ። ከሂሳብ ጫና ነጻ ወጥቻለሁ።",
+            "የዚህ ዓለም አቀፍ የ2 ሚሊዮን ሰራተኞች ማህበረሰብ አካል መሆኔ ኩሩ ነኝ።"
+        ]
+    };
+    
+    let allTemplatesEn = [];
+    let allTemplatesAm = [];
+    for (let key in categoriesEn) { allTemplatesEn = allTemplatesEn.concat(categoriesEn[key]); }
+    for (let key in categoriesAm) { allTemplatesAm = allTemplatesAm.concat(categoriesAm[key]); }
+    
+    const allTemplates = [];
+    for (let i = 0; i < 200; i++) {
+        if (i % 10 < 3) {
+            allTemplates.push(allTemplatesAm[Math.floor(Math.random() * allTemplatesAm.length)]);
+        } else {
+            allTemplates.push(allTemplatesEn[Math.floor(Math.random() * allTemplatesEn.length)]);
+        }
+    }
+    
+    function getRandomLengthText() {
+        const baseTemplate = allTemplates[Math.floor(Math.random() * allTemplates.length)];
+        const targetLength = Math.floor(Math.random() * 196) + 5;
+        let result = baseTemplate;
+        while(result.length < targetLength && result.length < 180) { result += " " + baseTemplate.substring(0, Math.floor(Math.random() * 30) + 5); }
+        if(result.length > 200) result = result.substring(0, 197) + "...";
+        return result;
+    }
+    
+    const internationalFirstNames = [
+        'John', 'Maria', 'David', 'Sophia', 'Mohamed', 'Fatima', 'Michael', 'Emma', 'James', 'Olivia',
+        'Carlos', 'Anna', 'Luis', 'Elena', 'Ahmed', 'Aisha', 'Ibrahim', 'Mariam', 'Thomas', 'Laura',
+        'Daniel', 'Isabella', 'Matthew', 'Mia', 'Joseph', 'Amelia', 'Christopher', 'Charlotte', 'Andrew', 'Abigail',
+        'Joshua', 'Emily', 'Kevin', 'Madison', 'Brian', 'Elizabeth', 'William', 'Sofia', 'Jonathan', 'Victoria',
+        'Robert', 'Hannah', 'Steven', 'Natalie', 'Richard', 'Grace', 'Paul', 'Chloe', 'Mark', 'Lily'
+    ];
+    const internationalLastNames = [
+        'Smith', 'Johnson', 'Williams', 'Brown', 'Jones', 'Garcia', 'Miller', 'Davis', 'Rodriguez', 'Martinez',
+        'Hernandez', 'Lopez', 'Gonzalez', 'Wilson', 'Anderson', 'Thomas', 'Taylor', 'Moore', 'Jackson', 'Martin',
+        'Lee', 'Perez', 'Thompson', 'White', 'Harris', 'Sanchez', 'Clark', 'Ramirez', 'Lewis', 'Robinson',
+        'Walker', 'Young', 'Allen', 'King', 'Wright', 'Scott', 'Torres', 'Nguyen', 'Hill', 'Flores'
+    ];
+    const locationsList = [
+        '🇺🇸 USA·Denver', '🇬🇧 UK·London', '🇫🇷 France·Paris', '🇩🇪 Germany·Berlin', '🇪🇸 Spain·Madrid',
+        '🇮🇹 Italy·Rome', '🇧🇷 Brazil·Sao Paulo', '🇪🇬 Egypt·Cairo', '🇲🇦 Morocco·Casablanca', '🇳🇬 Nigeria·Lagos',
+        '🇰🇪 Kenya·Nairobi', '🇿🇦 South Africa·Cape Town', '🇪🇹 Ethiopia·Addis Ababa', '🇹🇿 Tanzania·Dar es Salaam',
+        '🇬🇭 Ghana·Accra', '🇸🇳 Senegal·Dakar', '🇨🇮 Côte d\'Ivoire·Abidjan', '🇨🇲 Cameroon·Douala',
+        '🇦🇪 UAE·Dubai', '🇸🇦 Saudi Arabia·Riyadh', '🇮🇳 India·Mumbai', '🇵🇰 Pakistan·Karachi',
+        '🇧🇩 Bangladesh·Dhaka', '🇮🇩 Indonesia·Jakarta', '🇵🇭 Philippines·Manila', '🇻🇳 Vietnam·Ho Chi Minh City'
+    ];
+    
+    function randomInt(min, max) { return Math.floor(Math.random() * (max - min + 1)) + min; }
+    function getRandomDate() { const d = new Date(2024, 0, Math.random() * 365); return `${d.getFullYear()}-${(d.getMonth()+1).toString().padStart(2,'0')}-${d.getDate().toString().padStart(2,'0')}`; }
+    function getRandomName() { return internationalFirstNames[Math.floor(Math.random() * internationalFirstNames.length)] + ' ' + internationalLastNames[Math.floor(Math.random() * internationalLastNames.length)]; }
+    function getRandomIPLocation() { return `🌍 ${['USA','UK','France','Germany','Spain','Italy','Brazil','Egypt','Morocco','Nigeria','Kenya','South Africa','Ethiopia','Tanzania','Ghana','Senegal','UAE','India','Indonesia'][Math.floor(Math.random()*19)]} (IP: ${randomInt(1,255)}.${randomInt(1,255)}.${randomInt(1,255)}.${randomInt(1,255)})`; }
+    
+    let userFeedbacks = [];
+    try { const stored = localStorage.getItem('pgmall_feedbacks'); if(stored) userFeedbacks = JSON.parse(stored); } catch(e) {}
+    
+    function generateFreshFeedbacks(count) {
+        const newFeedbacks = [];
+        const usedNames = new Set();
+        const usedTexts = new Set();
+        for(let i = 0; i < count; i++) {
+            let name, text;
+            do { name = getRandomName(); } while(usedNames.has(name));
+            usedNames.add(name);
+            do { text = getRandomLengthText(); } while(usedTexts.has(text));
+            usedTexts.add(text);
+            newFeedbacks.push({
+                name: name,
+                location: locationsList[Math.floor(Math.random() * locationsList.length)],
+                ipLocation: getRandomIPLocation(),
+                text: text,
+                date: getRandomDate(),
+                id: Date.now() + i + Math.random()
+            });
+        }
+        return newFeedbacks;
+    }
+    
+    let currentFeedbacks = generateFreshFeedbacks(150);
+    function getAllFeedbacks() { return [...userFeedbacks, ...currentFeedbacks]; }
+    
+    let barrageAnimationId = null;
+    let currentScrollY = 0;
+    
+    function renderBarrage() {
+        const track = document.getElementById('barrageTrack');
+        if(!track) return;
+        const feedbacks = getAllFeedbacks();
+        const shuffled = [...feedbacks];
+        for(let i = shuffled.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]; }
+        
+        let html = '';
+        for(let i = 0; i < 2; i++) {
+            shuffled.slice(0, 60).forEach((fb) => {
+                let displayText = fb.text.length > 200 ? fb.text.substring(0, 197) + '...' : fb.text;
+                html += `<div class="barrage-item" data-ip="${escapeHtml(fb.ipLocation)}" data-name="${escapeHtml(fb.name)}" data-location="${escapeHtml(fb.location)}" data-date="${fb.date}">
+                    <div class="barrage-name"><span>⭐ ${escapeHtml(fb.name)}</span><span class="ip-tag">🌍 View IP</span></div>
+                    <div class="barrage-text">“${escapeHtml(displayText)}”</div>
+                    <div class="barrage-location"><span>📍 ${escapeHtml(fb.location)}</span><span>📅 ${fb.date}</span></div>
+                </div>`;
+            });
+        }
+        track.innerHTML = html;
+        
+        document.querySelectorAll('.barrage-item').forEach(item => {
+            item.addEventListener('click', function(e) { showIPTooltip(e, this.getAttribute('data-ip'), this.getAttribute('data-name')); });
+        });
+        startBarrageScroll();
+    }
+    
+    function startBarrageScroll() {
+        const track = document.getElementById('barrageTrack');
+        if(!track) return;
+        if(barrageAnimationId) cancelAnimationFrame(barrageAnimationId);
+        currentScrollY = 0;
+        const totalHeight = track.scrollHeight / 2;
+        if(totalHeight <= 0) return;
+        
+        function animate() {
+            currentScrollY += 0.6;
+            if(currentScrollY >= totalHeight) {
+                currentScrollY = 0;
+            }
+            track.style.transform = `translateY(-${currentScrollY}px)`;
+            barrageAnimationId = requestAnimationFrame(animate);
+        }
+        barrageAnimationId = requestAnimationFrame(animate);
+    }
+    
+    let tooltipTimeout = null;
+    function showIPTooltip(event, ip, name) {
+        let tooltip = document.getElementById('ipTooltip');
+        if(!tooltip) { 
+            tooltip = document.createElement('div'); 
+            tooltip.id = 'ipTooltip'; 
+            tooltip.style.position = 'fixed';
+            tooltip.style.background = '#1c6e58';
+            tooltip.style.color = 'white';
+            tooltip.style.padding = '6px 12px';
+            tooltip.style.borderRadius = '30px';
+            tooltip.style.fontSize = '11px';
+            tooltip.style.zIndex = '1001';
+            tooltip.style.pointerEvents = 'none';
+            tooltip.style.whiteSpace = 'nowrap';
+            tooltip.style.boxShadow = '0 4px 12px rgba(0,0,0,0.2)';
+            document.body.appendChild(tooltip); 
+        }
+        tooltip.innerHTML = `🔍 IP: ${ip}<br>📝 User: ${name}`;
+        tooltip.style.left = event.clientX + 15 + 'px';
+        tooltip.style.top = event.clientY - 30 + 'px';
+        tooltip.style.opacity = '1';
+        if(tooltipTimeout) clearTimeout(tooltipTimeout);
+        tooltipTimeout = setTimeout(() => tooltip.style.opacity = '0', 2000);
+    }
+    
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, m => m==='&'?'&amp;':m==='<'?'&lt;':'&gt;'); }
+    
+    const modal = document.getElementById('reviewModal');
+    const openBtn = document.getElementById('openReviewModalBtn');
+    const closeBtn = document.getElementById('closeReviewModalBtn');
+    openBtn?.addEventListener('click', () => { modal.classList.add('show'); document.body.style.overflow = 'hidden'; });
+    closeBtn?.addEventListener('click', () => { modal.classList.remove('show'); document.body.style.overflow = ''; });
+    modal?.addEventListener('click', (e) => { if(e.target === modal) { modal.classList.remove('show'); document.body.style.overflow = ''; } });
+    
+    const reviewMsg = document.getElementById('reviewMsg');
+    const charCountSpan = document.getElementById('charCount');
+    reviewMsg?.addEventListener('input', function() { charCountSpan.textContent = `${this.value.length} / 200`; });
+    
+    document.getElementById('submitReviewBtn')?.addEventListener('click', function() {
+        let name = document.getElementById('reviewName')?.value.trim();
+        let loc = document.getElementById('reviewLocation')?.value.trim();
+        let msg = document.getElementById('reviewMsg')?.value.trim();
+        if(!msg) { alert('Please write your review'); return; }
+        if(msg.length > 200) { alert('Review too long (max 200 characters)'); return; }
+        if(!name) name = 'PG Mall Employee';
+        if(!loc) loc = 'Global User';
+        const ds = new Date().toISOString().slice(0,10);
+        userFeedbacks.unshift({ name, location: loc, ipLocation: '🌍 ' + loc, text: msg, date: ds, id: Date.now() });
+        localStorage.setItem('pgmall_feedbacks', JSON.stringify(userFeedbacks));
+        renderBarrage();
+        document.getElementById('reviewMsg').value = '';
+        if(charCountSpan) charCountSpan.textContent = '0 / 200';
+        modal.classList.remove('show');
+        document.body.style.overflow = '';
+        alert('✅ Thank you! Your review has been added');
+    });
+    
+    document.querySelectorAll('.faq-question').forEach(q => {
+        q.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            if(answer.style.display === 'block') { answer.style.display = 'none'; this.querySelector('span').textContent = '▼'; }
+            else { answer.style.display = 'block'; this.querySelector('span').textContent = '▲'; }
+        });
+    });
+    
+    document.addEventListener('contextmenu', function(e) { if(!e.target.closest('input') && !e.target.closest('textarea')) { e.preventDefault(); return false; } });
+    document.addEventListener('copy', function(e) { if(!e.target.closest('input') && !e.target.closest('textarea')) { e.preventDefault(); return false; } });
+    
+    setInterval(() => { 
+        currentFeedbacks = generateFreshFeedbacks(150); 
+        renderBarrage(); 
+    }, 60000);
+    
+    window.onload = () => { renderBarrage(); const fc = document.getElementById('feedbackCount'); if(fc) fc.innerText = '999,999+ Reviews'; };
+    window.goHome = goHome; window.goBack = goBack;
+</script>
+</body>
+</html>
